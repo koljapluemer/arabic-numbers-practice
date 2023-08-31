@@ -8,6 +8,8 @@ const fieldUsedAsPrompt = ref(0);
 const fieldUsedAsAnswer = ref(1);
 const possibleAnswers = ref([]);
 const prompt = ref("");
+const correctAnswer = ref("");
+const givenAnswer = ref("");
 const indexOfAnswerClicked = ref(null);
 let unitsPracticedToday = 0;
 let unitsPracticedYesterday = 0;
@@ -37,12 +39,15 @@ function getRandomNumber() {
 
   // pick a nr between 0 and 3
   fieldUsedAsPrompt.value = Math.floor(Math.random() * 4);
-  prompt.value = newNumber[fieldUsedAsPrompt.value];
-  // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
+    // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
   fieldUsedAsAnswer.value = Math.floor(Math.random() * 4);
   while (fieldUsedAsAnswer.value === fieldUsedAsPrompt.value) {
     fieldUsedAsAnswer.value = Math.floor(Math.random() * 4);
   }
+
+  prompt.value = newNumber[fieldUsedAsPrompt.value];
+  correctAnswer.value = newNumber[fieldUsedAsAnswer.value];
+
   // have a 4 possible answer fields: one is the correct one, the rest is wrong ones picked from the data
   possibleAnswers.value = [newNumber[fieldUsedAsAnswer.value]];
   for (let i = 0; i < 3; i++) {
@@ -74,6 +79,8 @@ getRandomNumber();
 
 function handleAnswer(answer) {
   guessMade.value = true;
+  givenAnswer.value = answer;
+  console.log("answer clicked", answer);
   indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
 }
 </script>
@@ -96,15 +103,16 @@ function handleAnswer(answer) {
           'btn-success':
             guessMade &&
             index == indexOfAnswerClicked &&
-            index == fieldUsedAsAnswer,
+            givenAnswer === correctAnswer,
           'btn-error':
             guessMade &&
-            indexOfAnswerClicked !== fieldUsedAsAnswer &&
-            index == indexOfAnswerClicked,
+            index == indexOfAnswerClicked &&
+            givenAnswer !== correctAnswer,
           'btn-info':
             guessMade &&
             index != indexOfAnswerClicked &&
-            index === fieldUsedAsAnswer,
+            answer === correctAnswer &&
+            givenAnswer !== correctAnswer,
         }"
         v-for="(answer, index) in possibleAnswers"
         @click="handleAnswer(answer)"
@@ -121,6 +129,7 @@ function handleAnswer(answer) {
       </button>
     </div>
   </div>
+  <!-- {{ randomNumber }}, index of nr clicked: {{ indexOfAnswerClicked }}, answer: {{ givenAnswer }}, correct answer: {{ correctAnswer }}  -->
 </template>
 
 <style scoped></style>
