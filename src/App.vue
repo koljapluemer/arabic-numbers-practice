@@ -98,7 +98,7 @@ function handleAnswer(answer) {
 
     <div class="card-actions flex-col justify-end mt-6 pt-2">
       <button
-        class="btn text-xl w-full max-w-1/3"
+        class="btn text-xl w-full max-w-1/3 lowercase"
         :class="{
           'btn-success':
             guessMade &&
@@ -113,6 +113,7 @@ function handleAnswer(answer) {
             index != indexOfAnswerClicked &&
             answer === correctAnswer &&
             givenAnswer !== correctAnswer,
+          'text-3xl': fieldUsedAsAnswer == 2,
         }"
         v-for="(answer, index) in possibleAnswers"
         @click="handleAnswer(answer)"
