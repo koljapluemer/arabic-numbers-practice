@@ -1,1 +1,1 @@
-/home/b/MEGA/Obsidian/Main/Projects/Arabic Syllables Pronounciation Tutor.md
+/home/b/MEGA/Obsidian/Main/Projects/Arabic Number Practice.md
