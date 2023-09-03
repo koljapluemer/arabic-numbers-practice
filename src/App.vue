@@ -146,7 +146,7 @@ function handleAnswer(answer) {
             answer === correctAnswer &&
             givenAnswer !== correctAnswer,
           'text-3xl': fieldUsedAsAnswer == 2,
-          'motion-safe:animate-pulse':
+          'shine-button':
             answer === correctAnswer &&
             !guessMade &&
             !userSawPromptBefore(prompt),
