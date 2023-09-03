@@ -2,7 +2,7 @@
 import numbers from "./numbers.js";
 import { ref } from "vue";
 
-let randomNumber = {};
+let randomNumber = ref({});
 let numberBank = [];
 const fieldUsedAsPrompt = ref(0);
 const fieldUsedAsAnswer = ref(1);
@@ -17,7 +17,7 @@ let unitsPracticedYesterday = 0;
 numberBank = numbers;
 if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBank to the localStorage value
-  numberBank = JSON.parse(localStorage.getItem("numberBank"));
+  // numberBank = JSON.parse(localStorage.getItem("numberBank"));
 }
 
 // same with localStorage stats
@@ -52,8 +52,8 @@ function getRandomNumber() {
     );
     // we just sort the last, a bit randomly, and then pick the first element:
     const rarityLevels = [
-      { level: 0, probability: 0.5 }, // Level 0 (most common)
-      { level: 1, probability: 0.3 }, // Level 1 (less common)
+      { level: 0, probability: 0.9 }, // Level 0 (most common)
+      { level: 1, probability: 0.6 }, // Level 1 (less common)
       { level: 2, probability: 0.2 }, // Level 2 (even rarer)
       { level: 3, probability: 0.1 }, // Level 3 (rarer)
       { level: 4, probability: 0.05 }, // Level 3 (rarer)
@@ -76,13 +76,15 @@ function getRandomNumber() {
       return 0;
     });
   } else {
-    numbersList = numberBank.filter((number) => number.stats.length == 0).sort(() => Math.random() - 0.5)
+    numbersList = numberBank
+      .filter((number) => number.stats.length == 0)
+      .sort(() => Math.random() - 0.5);
   }
   if (numbersList.length == 0) {
     console.log(
       `tried picking a new number ${pickNewNumber}, but there was none, so getting any`
     );
-    numbersList = numberBank.sort(() => Math.random() - 0.5)
+    numbersList = numberBank.sort(() => Math.random() - 0.5);
   }
   newNumber = numbersList[0];
 
@@ -116,16 +118,16 @@ function getRandomNumber() {
   // shuffle the possible answers
   possibleAnswers.value.sort(() => Math.random() - 0.5);
 
-  randomNumber = newNumber;
+  randomNumber.value = newNumber;
   // save the numberBank to localStorage (doesn't make that much sense here in the code but whatever)
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
 }
 
 function userSawPromptBefore(prompt) {
   // check if stats list even exists on this number
-  if (randomNumber.length == 5) {
+  if (randomNumber.value.length == 5) {
     // check if the prompt is in the stats list
-    const promptInStats = randomNumber[4].find(
+    const promptInStats = randomNumber.value[4].find(
       (entry) => entry.prompt === prompt
     );
     if (promptInStats) {
@@ -156,22 +158,26 @@ function handleAnswer(answer) {
     answer: answer,
     prompt: prompt.value,
   };
-  randomNumber.stats.push(statsEntry);
+  randomNumber.value.stats.push(statsEntry);
   // save to localStorage
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
   // if correct, add one to repetitions, otherwise reset
-  randomNumber.sr.repetitions = answerWasCorrect
-    ? randomNumber.sr.repetitions + 1
+  randomNumber.value.sr.repetitions = answerWasCorrect
+    ? randomNumber.value.sr.repetitions + 1
     : 0;
   // if correct, double interval, if not, half it (min is 10)
-  randomNumber.sr.interval = answerWasCorrect
-    ? randomNumber.sr.interval * 2 * randomNumber.sr.repetitions
-    : Math.max(randomNumber.sr.interval / 2, 10);
+  randomNumber.value.sr.interval = answerWasCorrect
+    ? randomNumber.value.sr.interval * 2 * randomNumber.value.sr.repetitions
+    : Math.max(randomNumber.value.sr.interval / 2, 10);
   // calculate new dueAt by adding interval in seconds to current time (save as UNIX string)
-  randomNumber.sr.dueAt = Math.floor(
-    new Date().getTime() / 1000 + randomNumber.sr.interval
+  randomNumber.value.sr.dueAt = Math.floor(
+    new Date().getTime() / 1000 + randomNumber.value.sr.interval
   );
-  console.log("sr:", randomNumber.sr);
+  // if this was the very first time, just set dueAt to right now anyways
+  if (randomNumber.value.stats.length == 1) {
+    randomNumber.value.sr.dueAt = Math.floor(new Date().getTime() / 1000);
+  }
+  console.log("sr:", randomNumber.value.sr);
 }
 </script>
 
@@ -180,13 +186,30 @@ function handleAnswer(answer) {
   <div
     class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col items-center w-full max-w-screen-xl"
   >
-    <div class="card-body">
+    <div class="card-body text-2xl flex gap-1 flex-col items-center" v-if="randomNumber.stats.length == 0">
+    <small>new number:</small>
+      <span class="text-6xl">{{ randomNumber.ar }}</span>
+      <span>{{ randomNumber.val }}</span>
+      <span>{{ randomNumber.ar_long }}</span>
+      <span>{{ randomNumber.transliteration }}</span>
+    </div>
+    <div class="card-body" v-else>
       <div id="prompt" class="text-2xl">
         {{ prompt }}
       </div>
     </div>
 
-    <div class="card-actions flex-col justify-end mt-6 pt-2">
+    <div class="card-actions"  v-if="randomNumber.stats.length == 0">
+
+      <button
+        class="btn btn-primary mt-4"
+        @click="handleAnswer('Initial Review'); getRandomNumber()"
+      >
+        I'll remember!
+      </button>
+    </div>
+
+    <div class="card-actions flex-col justify-end mt-6 pt-2" v-else>
       <button
         class="btn text-xl w-full max-w-1/3 lowercase"
         :class="{
