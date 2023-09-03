@@ -41,7 +41,9 @@ function getRandomNumber() {
   let newNumber = {};
   let numbersToPickFrom = [];
   if (!pickNewNumber) {
-    numbersToPickFrom = numberBank.filter((number) => number.stats.length > 0);
+    // filter by stats existing, and dueAt being in the past (compare via UNIX string)
+    numbersToPickFrom = numberBank.filter((number) => number.stats.length > 0).filter((number) => number.sr.dueAt < Math.floor(new Date().getTime() / 1000));
+    console.log(`there are ${numbersToPickFrom.length} old, due numbers to pick from`)
   } else {
     numbersToPickFrom = numberBank.filter((number) => number.stats.length == 0);
   }
@@ -112,18 +114,32 @@ getRandomNumber();
 function handleAnswer(answer) {
   guessMade.value = true;
   givenAnswer.value = answer;
+  const answerWasCorrect = answer === correctAnswer.value;
   console.log("answer clicked", answer);
   indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
   // add or update the statistics object as the last item of the list of the number in numberBank
   const statsEntry = {
     date: new Date(),
-    correct: answer === correctAnswer.value,
+    correct: answerWasCorrect,
     answer: answer,
     prompt: prompt.value,
   };
   randomNumber.stats.push(statsEntry);
   // save to localStorage
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
+  // if correct, add one to repetitions, otherwise reset
+  randomNumber.sr.repetitions = answerWasCorrect
+    ? randomNumber.sr.repetitions + 1
+    : 0;
+    // if correct, double interval, if not, half it (min is 10)
+  randomNumber.sr.interval = answerWasCorrect
+    ? randomNumber.sr.interval * 2 * randomNumber.sr.repetitions
+    : Math.max(randomNumber.sr.interval / 2, 10);
+  // calculate new dueAt by adding interval in seconds to current time (save as UNIX string)
+  randomNumber.sr.dueAt = Math.floor(
+    new Date().getTime() / 1000 + randomNumber.sr.interval
+  );
+  console.log("sr:", randomNumber.sr);
 }
 </script>
 
