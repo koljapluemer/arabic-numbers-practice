@@ -13,10 +13,10 @@ const givenAnswer = ref("");
 const indexOfAnswerClicked = ref(null);
 let unitsPracticedToday = 0;
 let unitsPracticedYesterday = 0;
-// see if numberBankis in localStorage, if so, load it,  if not, set it to the imported numbers
+// see if numberBank is in localStorage, if so, load it,  if not, set it to the imported numbers (feel free to disable conditional for developing)
 numberBank = numbers;
 if (localStorage.getItem("numberBank")) {
-  // if it is in localStorage, set the numberBankto the localStorage value
+  // if it is in localStorage, set the numberBank to the localStorage value
   // numberBank = JSON.parse(localStorage.getItem("numberBank"));
 }
 
@@ -33,11 +33,27 @@ if (localStorage.getItem("numberBank")) {
 function getRandomNumber() {
   guessMade.value = false;
   console.log("picking number from", numberBank);
-  const newNumber =
-    numberBank[Math.floor(Math.random() * numberBank.length)];
+  // with 80% chance, pick a number that has been practiced before
+  // with 20% chance, pick a number that has not been practiced before (empty stats list)
+  // if there is no number with the preferred property, pick any random one
+  const pickNewNumber = Math.random() > 0.8;
+  console.log("pickNewNumber", pickNewNumber);
+  let newNumber = {};
+  let numbersToPickFrom = [];
+  if (!pickNewNumber) {
+    numbersToPickFrom = numberBank.filter((number) => number.stats.length > 0);
+  } else {
+    numbersToPickFrom = numberBank.filter((number) => number.stats.length == 0);
+  }
+  if (numbersToPickFrom.length == 0) {
+    console.log(`tried picking a new number ${pickNewNumber}, but there was none, so getting any`);
+    numbersToPickFrom = numberBank;
+  }
+  newNumber =
+    numbersToPickFrom[Math.floor(Math.random() * numbersToPickFrom.length)];
 
-  // randomly pick a field out of val, ar, ar_long and translit
-  const fields = ["val", "ar", "ar_long", "translit"];
+  // randomly pick a field out of val, ar, ar_long and transliteration
+  const fields = ["val", "ar", "ar_long", "transliteration"];
   fieldUsedAsPrompt.value = fields[Math.floor(Math.random() * 4)];
   // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
   fieldUsedAsAnswer.value = fieldUsedAsPrompt.value;
@@ -67,7 +83,7 @@ function getRandomNumber() {
   possibleAnswers.value.sort(() => Math.random() - 0.5);
 
   randomNumber = newNumber;
-  // save the numberBankto localStorage (doesn't make that much sense here in the code but whatever)
+  // save the numberBank to localStorage (doesn't make that much sense here in the code but whatever)
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
 }
 
@@ -98,7 +114,7 @@ function handleAnswer(answer) {
   givenAnswer.value = answer;
   console.log("answer clicked", answer);
   indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
-  // add or update the statistics object as the last item of the list of the number in numberbank
+  // add or update the statistics object as the last item of the list of the number in numberBank
   const statsEntry = {
     date: new Date(),
     correct: answer === correctAnswer.value,
