@@ -17,7 +17,7 @@ let unitsPracticedYesterday = 0;
 numberBank = numbers;
 if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBank to the localStorage value
-  // numberBank = JSON.parse(localStorage.getItem("numberBank"));
+  numberBank = JSON.parse(localStorage.getItem("numberBank"));
 }
 
 // same with localStorage stats
@@ -36,7 +36,7 @@ function getRandomNumber() {
   // with 80% chance, pick a number that has been practiced before
   // with 20% chance, pick a number that has not been practiced before (empty stats list)
   // if there is no number with the preferred property, pick any random one
-  const pickNewNumber = Math.random() > 0.8;
+  const pickNewNumber = Math.random() > 0.9;
   console.log("pickNewNumber", pickNewNumber);
   let newNumber = {};
   let numbersList = [];
