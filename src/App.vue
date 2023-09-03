@@ -17,23 +17,13 @@ let unitsPracticedYesterday = 0;
 numberBank = numbers;
 if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBank to the localStorage value
-  // numberBank = JSON.parse(localStorage.getItem("numberBank"));
+  numberBank = JSON.parse(localStorage.getItem("numberBank"));
 }
-
-// same with localStorage stats
-// let stats = {};
-// if (!localStorage.getItem("stats")) {
-//   stats = {
-//     counter: 0,
-//   };
-// } else {
-//   stats = JSON.parse(localStorage.getItem("stats"));
-// }
 
 function getRandomNumber() {
   guessMade.value = false;
   console.log("picking number from", numberBank);
-  // with 80% chance, pick a number that has been practiced before
+  // with 90% chance, pick a number that has been practiced before
   // with 20% chance, pick a number that has not been practiced before (empty stats list)
   // if there is no number with the preferred property, pick any random one
   const pickNewNumber = Math.random() > 0.9;
@@ -184,7 +174,7 @@ function handleAnswer(answer) {
 <template>
   <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
   <div
-    class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col items-center w-full max-w-screen-xl"
+    class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col items-center w-3/4 max-w-screen-xl"
   >
     <div class="card-body text-2xl flex gap-1 flex-col items-center" v-if="randomNumber.stats.length == 0">
     <small>new number:</small>
@@ -211,7 +201,7 @@ function handleAnswer(answer) {
 
     <div class="card-actions flex-col justify-end mt-6 pt-2" v-else>
       <button
-        class="btn text-xl w-full max-w-1/3 lowercase"
+        class="btn text-2xl w-full max-w-1/3 lowercase"
         :class="{
           'btn-success':
             guessMade &&
@@ -247,7 +237,6 @@ function handleAnswer(answer) {
       </button>
     </div>
   </div>
-  <!-- {{ randomNumber }}, index of nr clicked: {{ indexOfAnswerClicked }}, answer: {{ givenAnswer }}, correct answer: {{ correctAnswer }}  -->
 </template>
 
 <style scoped></style>
