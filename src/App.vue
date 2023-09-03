@@ -39,7 +39,7 @@ function getRandomNumber() {
 
   // pick a nr between 0 and 3
   fieldUsedAsPrompt.value = Math.floor(Math.random() * 4);
-    // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
+  // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
   fieldUsedAsAnswer.value = Math.floor(Math.random() * 4);
   while (fieldUsedAsAnswer.value === fieldUsedAsPrompt.value) {
     fieldUsedAsAnswer.value = Math.floor(Math.random() * 4);
@@ -63,10 +63,26 @@ function getRandomNumber() {
     }
     possibleAnswers.value.push(newWrongAnswer);
   }
+  // shuffle the possible answers
+  possibleAnswers.value.sort(() => Math.random() - 0.5);
 
   randomNumber.value = newNumber;
   // save the numberBankto localStorage (doesn't make that much sense here in the code but whatever)
   localStorage.setItem("numberBank", JSON.stringify(numberBank.value));
+}
+
+function userSawPromptBefore(prompt) {
+  // check if stats list even exists on this number
+  if (randomNumber.value.length == 5) {
+    // check if the prompt is in the stats list
+    const promptInStats = randomNumber.value[4].find(
+      (entry) => entry.prompt === prompt
+    );
+    if (promptInStats) {
+      return true;
+    }
+  }
+  return false;
 }
 
 let guessMade = ref(false);
@@ -82,6 +98,22 @@ function handleAnswer(answer) {
   givenAnswer.value = answer;
   console.log("answer clicked", answer);
   indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
+  // add or update the statistics object as the last item of the list of the number in numberbank
+  const statsEntry = {
+    date: new Date(),
+    correct: answer === correctAnswer.value,
+    answer: answer,
+    prompt: prompt.value,
+  };
+  if (randomNumber.value.length == 5) {
+    // stats list exist, push to it
+    randomNumber.value[4].push(statsEntry);
+  } else {
+    // stats list doesn't exist, create it
+    randomNumber.value.push([statsEntry]);
+  }
+  // save to localStorage
+  localStorage.setItem("numberBank", JSON.stringify(numberBank.value));
 }
 </script>
 
@@ -114,6 +146,10 @@ function handleAnswer(answer) {
             answer === correctAnswer &&
             givenAnswer !== correctAnswer,
           'text-3xl': fieldUsedAsAnswer == 2,
+          'motion-safe:animate-pulse':
+            answer === correctAnswer &&
+            !guessMade &&
+            !userSawPromptBefore(prompt),
         }"
         v-for="(answer, index) in possibleAnswers"
         @click="handleAnswer(answer)"
