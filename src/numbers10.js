@@ -12,5 +12,4 @@ const numbers = [
   [10, "١٠", "عشرة", "ashara"],
 ];
 
-
 export default numbers;

@@ -2,7 +2,7 @@
 import numbers from "./numbers.js";
 import { ref } from "vue";
 
-let randomNumber = ref([]);
+let randomNumber = {};
 let numberBank = [];
 const fieldUsedAsPrompt = ref(0);
 const fieldUsedAsAnswer = ref(1);
@@ -14,35 +14,35 @@ const indexOfAnswerClicked = ref(null);
 let unitsPracticedToday = 0;
 let unitsPracticedYesterday = 0;
 // see if numberBankis in localStorage, if so, load it,  if not, set it to the imported numbers
-if (!localStorage.getItem("numberBank")) {
-  numberBank.value = numbers;
-} else {
+numberBank = numbers;
+if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBankto the localStorage value
-  numberBank.value = JSON.parse(localStorage.getItem("numberBank"));
+  // numberBank = JSON.parse(localStorage.getItem("numberBank"));
 }
 
 // same with localStorage stats
-let stats = {};
-if (!localStorage.getItem("stats")) {
-  stats = {
-    counter: 0,
-  };
-} else {
-  stats = JSON.parse(localStorage.getItem("stats"));
-}
+// let stats = {};
+// if (!localStorage.getItem("stats")) {
+//   stats = {
+//     counter: 0,
+//   };
+// } else {
+//   stats = JSON.parse(localStorage.getItem("stats"));
+// }
 
 function getRandomNumber() {
   guessMade.value = false;
   console.log("picking number from", numberBank);
   const newNumber =
-    numberBank.value[Math.floor(Math.random() * numberBank.value.length)];
+    numberBank[Math.floor(Math.random() * numberBank.length)];
 
-  // pick a nr between 0 and 3
-  fieldUsedAsPrompt.value = Math.floor(Math.random() * 4);
+  // randomly pick a field out of val, ar, ar_long and translit
+  const fields = ["val", "ar", "ar_long", "translit"];
+  fieldUsedAsPrompt.value = fields[Math.floor(Math.random() * 4)];
   // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
-  fieldUsedAsAnswer.value = Math.floor(Math.random() * 4);
+  fieldUsedAsAnswer.value = fieldUsedAsPrompt.value;
   while (fieldUsedAsAnswer.value === fieldUsedAsPrompt.value) {
-    fieldUsedAsAnswer.value = Math.floor(Math.random() * 4);
+    fieldUsedAsAnswer.value = fields[Math.floor(Math.random() * 4)];
   }
 
   prompt.value = newNumber[fieldUsedAsPrompt.value];
@@ -52,12 +52,12 @@ function getRandomNumber() {
   possibleAnswers.value = [newNumber[fieldUsedAsAnswer.value]];
   for (let i = 0; i < 3; i++) {
     let newWrongAnswer =
-      numberBank.value[Math.floor(Math.random() * numberBank.value.length)][
+      numberBank[Math.floor(Math.random() * numberBank.length)][
         fieldUsedAsAnswer.value
       ];
     while (possibleAnswers.value.includes(newWrongAnswer)) {
       newWrongAnswer =
-        numberBank.value[Math.floor(Math.random() * numberBank.value.length)][
+        numberBank[Math.floor(Math.random() * numberBank.length)][
           fieldUsedAsAnswer.value
         ];
     }
@@ -66,16 +66,16 @@ function getRandomNumber() {
   // shuffle the possible answers
   possibleAnswers.value.sort(() => Math.random() - 0.5);
 
-  randomNumber.value = newNumber;
+  randomNumber = newNumber;
   // save the numberBankto localStorage (doesn't make that much sense here in the code but whatever)
-  localStorage.setItem("numberBank", JSON.stringify(numberBank.value));
+  localStorage.setItem("numberBank", JSON.stringify(numberBank));
 }
 
 function userSawPromptBefore(prompt) {
   // check if stats list even exists on this number
-  if (randomNumber.value.length == 5) {
+  if (randomNumber.length == 5) {
     // check if the prompt is in the stats list
-    const promptInStats = randomNumber.value[4].find(
+    const promptInStats = randomNumber[4].find(
       (entry) => entry.prompt === prompt
     );
     if (promptInStats) {
@@ -105,20 +105,14 @@ function handleAnswer(answer) {
     answer: answer,
     prompt: prompt.value,
   };
-  if (randomNumber.value.length == 5) {
-    // stats list exist, push to it
-    randomNumber.value[4].push(statsEntry);
-  } else {
-    // stats list doesn't exist, create it
-    randomNumber.value.push([statsEntry]);
-  }
+  randomNumber.stats.push(statsEntry);
   // save to localStorage
-  localStorage.setItem("numberBank", JSON.stringify(numberBank.value));
+  localStorage.setItem("numberBank", JSON.stringify(numberBank));
 }
 </script>
 
 <template>
-  <small> Practiced {{ stats.counter }} times so far </small>
+  <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
   <div
     class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col items-center w-full max-w-screen-xl"
   >
