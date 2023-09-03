@@ -39,20 +39,52 @@ function getRandomNumber() {
   const pickNewNumber = Math.random() > 0.8;
   console.log("pickNewNumber", pickNewNumber);
   let newNumber = {};
-  let numbersToPickFrom = [];
+  let numbersList = [];
   if (!pickNewNumber) {
     // filter by stats existing, and dueAt being in the past (compare via UNIX string)
-    numbersToPickFrom = numberBank.filter((number) => number.stats.length > 0).filter((number) => number.sr.dueAt < Math.floor(new Date().getTime() / 1000));
-    console.log(`there are ${numbersToPickFrom.length} old, due numbers to pick from`)
+    numbersList = numberBank
+      .filter((number) => number.stats.length > 0)
+      .filter(
+        (number) => number.sr.dueAt < Math.floor(new Date().getTime() / 1000)
+      );
+    console.log(
+      `there are ${numbersList.length} old, due numbers to pick from`
+    );
+    // we just sort the last, a bit randomly, and then pick the first element:
+    const rarityLevels = [
+      { level: 0, probability: 0.5 }, // Level 0 (most common)
+      { level: 1, probability: 0.3 }, // Level 1 (less common)
+      { level: 2, probability: 0.2 }, // Level 2 (even rarer)
+      { level: 3, probability: 0.1 }, // Level 3 (rarer)
+      { level: 4, probability: 0.05 }, // Level 3 (rarer)
+    ];
+
+    // Sort the numbers based on rarity levels and random factor
+    numbersList = numbersList.sort((a, b) => {
+      // Randomly shuffle the order with a 10% chance
+      if (Math.random() < 0.1) {
+        return Math.random() - 0.5; // Random sort order
+      }
+
+      // Sort primarily by rarity level
+      const levelA = a.level;
+      const levelB = b.level;
+
+      if (levelA < levelB) return -1;
+      if (levelA > levelB) return 1;
+
+      return 0;
+    });
   } else {
-    numbersToPickFrom = numberBank.filter((number) => number.stats.length == 0);
+    numbersList = numberBank.filter((number) => number.stats.length == 0).sort(() => Math.random() - 0.5)
   }
-  if (numbersToPickFrom.length == 0) {
-    console.log(`tried picking a new number ${pickNewNumber}, but there was none, so getting any`);
-    numbersToPickFrom = numberBank;
+  if (numbersList.length == 0) {
+    console.log(
+      `tried picking a new number ${pickNewNumber}, but there was none, so getting any`
+    );
+    numbersList = numberBank.sort(() => Math.random() - 0.5)
   }
-  newNumber =
-    numbersToPickFrom[Math.floor(Math.random() * numbersToPickFrom.length)];
+  newNumber = numbersList[0];
 
   // randomly pick a field out of val, ar, ar_long and transliteration
   const fields = ["val", "ar", "ar_long", "transliteration"];
@@ -131,7 +163,7 @@ function handleAnswer(answer) {
   randomNumber.sr.repetitions = answerWasCorrect
     ? randomNumber.sr.repetitions + 1
     : 0;
-    // if correct, double interval, if not, half it (min is 10)
+  // if correct, double interval, if not, half it (min is 10)
   randomNumber.sr.interval = answerWasCorrect
     ? randomNumber.sr.interval * 2 * randomNumber.sr.repetitions
     : Math.max(randomNumber.sr.interval / 2, 10);
