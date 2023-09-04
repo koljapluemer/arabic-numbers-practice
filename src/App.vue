@@ -237,6 +237,10 @@ function handleAnswer(answer) {
       </button>
     </div>
   </div>
+
+  <footer>
+  <small>More cool stuff at <a class="underline" href="https://koljapluemer.com/">koljapluemer.com</a></small>
+  </footer>
 </template>
 
 <style scoped></style>
