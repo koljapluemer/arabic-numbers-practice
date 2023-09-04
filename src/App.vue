@@ -26,7 +26,7 @@ function getRandomNumber() {
   // with 90% chance, pick a number that has been practiced before
   // with 20% chance, pick a number that has not been practiced before (empty stats list)
   // if there is no number with the preferred property, pick any random one
-  const pickNewNumber = Math.random() > 0.9;
+  const pickNewNumber = Math.random() > 0.95;
   console.log("pickNewNumber", pickNewNumber);
   let newNumber = {};
   let numbersList = [];
