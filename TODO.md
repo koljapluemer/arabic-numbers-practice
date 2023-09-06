@@ -1,6 +1,6 @@
 ## must
 
-* reflect that one number has like 12 exercises attached to it
+* reflect that one number has like 12 exercises attached to it (data structure generation)
 
 ## could
 
