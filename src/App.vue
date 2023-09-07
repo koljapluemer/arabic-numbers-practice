@@ -73,7 +73,7 @@ function getNextExercise() {
     (exercise) => exercise.stats.length == 0
   );
   const oldDueExercises = exercises.filter(
-    (exercise) => exercise.stats.length > 0
+    (exercise) => exercise.stats.length > 0  && exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000)
   );
   console.log(
     `there are ${newDueExercises.length} new exercises and ${oldDueExercises.length} old exercises`
@@ -89,7 +89,7 @@ function getNextExercise() {
   const pickNewExercise =
     Math.random() > 0.8 ||
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
-  console.log("picking new exercise?", pickNewExercise);
+  console.log(pickNewExercise ? 'Picking new exercise' : 'Picking old exercise');
   // always pick the one that has been due the longest
   if (pickNewExercise) {
     // pick a new exercise
@@ -98,6 +98,7 @@ function getNextExercise() {
     // pick an old exercise
     exercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
   }
+  console.log("exercise picked:", exercise);
 
   fieldUsedAsPrompt = exercise.promptType;
   fieldUsedAsAnswer = exercise.answerType;
@@ -134,6 +135,36 @@ getNextExercise();
 
 function userSawExerciseBefore() {
   return exercise.stats.length > 0;
+}
+
+function handleAnswer(answer) {
+  const guessWasCorrect = answer === correctAnswer;
+  guessMade.value = true;
+  givenAnswer = answer;
+  indexOfAnswerClicked = possibleAnswers.indexOf(answer);
+
+  // if answer correct, double interval, if incorrect, half interval (minimum 10)
+  if (guessWasCorrect) {
+    exercise.sr.repetitions++;
+    exercise.sr.interval = exercise.sr.interval * 2 * exercise.sr.repetitions;
+  } else {
+    exercise.sr.interval = Math.max(exercise.sr.interval / 2, 10);
+  }
+
+  // set dueAt to now + interval
+  exercise.sr.dueAt = Math.floor(new Date().getTime() / 1000) + exercise.sr.interval;
+  const statsObj = {
+    guessWasCorrect: guessWasCorrect,
+    guess: answer,
+    correctAnswer: correctAnswer,
+    prompt: prompt,
+    promptType: fieldUsedAsPrompt,
+    answerType: fieldUsedAsAnswer,
+    timestamp: Math.floor(new Date().getTime() / 1000),
+  }
+  exercise.stats.push(statsObj);
+  console.log("exercise data updated:", exercise);
+
 }
 </script>
 
@@ -177,7 +208,7 @@ function userSawExerciseBefore() {
 
       <button
         class="btn btn-primary mt-4"
-        @click="getRandomNumber"
+        @click="getNextExercise"
         v-if="guessMade"
       >
         Next
