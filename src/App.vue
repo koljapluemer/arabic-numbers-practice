@@ -158,7 +158,11 @@ function handleAnswer(answer) {
   // if answer correct, double interval, if incorrect, half interval (minimum 10)
   if (guessWasCorrect) {
     exercise.value.sr.repetitions++;
-    exercise.value.number.level++;
+    //  max level is 10
+    exercise.value.number.level = Math.min(
+      exercise.value.number.level + 1,
+      10
+    );
     exercise.value.sr.interval =
       exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
   } else {
