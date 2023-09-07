@@ -2,129 +2,126 @@
 import numbers from "./numbers.js";
 import { ref } from "vue";
 
-let randomNumber = ref({});
-let numberBank = [];
-const fieldUsedAsPrompt = ref(0);
-const fieldUsedAsAnswer = ref(1);
-const possibleAnswers = ref([]);
-const prompt = ref("");
-const correctAnswer = ref("");
-const givenAnswer = ref("");
-const indexOfAnswerClicked = ref(null);
+let numberBank = numbers;
+console.log("numberBank", numberBank);
+let fieldUsedAsPrompt = "";
+let fieldUsedAsAnswer = "";
+let possibleAnswers = [];
+let prompt = "";
+let correctAnswer = "";
+let givenAnswer = "";
+let indexOfAnswerClicked = null;
 let unitsPracticedToday = 0;
 let unitsPracticedYesterday = 0;
+let exercise = {};
 // see if numberBank is in localStorage, if so, load it,  if not, set it to the imported numbers (feel free to disable conditional for developing)
-numberBank = numbers;
 if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBank to the localStorage value
-  numberBank = JSON.parse(localStorage.getItem("numberBank"));
+  // numberBank = JSON.parse(localStorage.getItem("numberBank"));
 }
 
-function getRandomNumber() {
-  guessMade.value = false;
-  console.log("picking number from", numberBank);
-  // with 90% chance, pick a number that has been practiced before
-  // with 20% chance, pick a number that has not been practiced before (empty stats list)
-  // if there is no number with the preferred property, pick any random one
-  const pickNewNumber = Math.random() > 0.95;
-  console.log("pickNewNumber", pickNewNumber);
-  let newNumber = {};
-  let numbersList = [];
-  if (!pickNewNumber) {
-    // filter by stats existing, and dueAt being in the past (compare via UNIX string)
-    numbersList = numberBank
-      .filter((number) => number.stats.length > 0)
-      .filter(
-        (number) => number.sr.dueAt < Math.floor(new Date().getTime() / 1000)
-      );
-    console.log(
-      `there are ${numbersList.length} old, due numbers to pick from`
-    );
-    // we just sort the last, a bit randomly, and then pick the first element:
-    const rarityLevels = [
-      { level: 0, probability: 0.9 }, // Level 0 (most common)
-      { level: 1, probability: 0.6 }, // Level 1 (less common)
-      { level: 2, probability: 0.2 }, // Level 2 (even rarer)
-      { level: 3, probability: 0.1 }, // Level 3 (rarer)
-      { level: 4, probability: 0.05 }, // Level 3 (rarer)
-    ];
+let exercises = [];
+// loop the number bank, add all possible exercises to the exercises array
+// all possible exercises: all pairs of prompts and answer types (val, ar, ar_long, transliteration)
+// also add a stats and sr property to each exercise, and take the level property from the parent element from numberBack:
+const possibleExerciseCombinations = [
+  ["val", "ar"],
+  ["val", "ar_long"],
+  ["val", "transliteration"],
+  ["ar", "val"],
+  ["ar", "ar_long"],
+  ["ar", "transliteration"],
+  ["ar", "en"],
+  ["ar_long", "val"],
+  ["ar_long", "ar"],
+  ["ar_long", "transliteration"],
+  ["ar_long", "en"],
+  ["en", "ar"],
+  ["en", "ar_long"],
+  ["en", "transliteration"],
+  ["transliteration", "val"],
+  ["transliteration", "ar"],
+  ["transliteration", "ar_long"],
+  ["transliteration", "en"],
+];
 
-    // Sort the numbers based on rarity levels and random factor
-    numbersList = numbersList.sort((a, b) => {
-      // Randomly shuffle the order with a 10% chance
-      if (Math.random() < 0.1) {
-        return Math.random() - 0.5; // Random sort order
-      }
+console.log("possibleExerciseCombinations", possibleExerciseCombinations);
+for (const number of numberBank) {
+  for (const exerciseCombination of possibleExerciseCombinations) {
+    const exercise = {
+      promptType: exerciseCombination[0],
+      answerType: exerciseCombination[1],
+      prompt: number[exerciseCombination[0]],
+      correctAnswer: number[exerciseCombination[1]],
+      stats: [],
+      sr: {
+        repetitions: 0,
+        interval: 10,
+        dueAt: Math.floor(new Date().getTime() / 1000),
+      },
+      number: number,
+    };
+    exercises.push(exercise);
+  }
+}
 
-      // Sort primarily by rarity level
-      const levelA = a.level;
-      const levelB = b.level;
+console.log("exercises", exercises);
 
-      if (levelA < levelB) return -1;
-      if (levelA > levelB) return 1;
-
-      return 0;
-    });
+function getNextExercise() {
+  // new exercises are those whose stats array is empty
+  const newDueExercises = exercises.filter(
+    (exercise) => exercise.stats.length == 0
+  );
+  const oldDueExercises = exercises.filter(
+    (exercise) => exercise.stats.length > 0
+  );
+  console.log(
+    `there are ${newDueExercises.length} new exercises and ${oldDueExercises.length} old exercises`
+  );
+  // in case there are no exercises due, make a popup and return
+  if (newDueExercises.length == 0 && oldDueExercises.length == 0) {
+    alert("You have nothing left to do right now! Come back later!");
+    return;
+  }
+  // pick an old exercise with 80% chance. But:
+  // if there are no old exercises, always pick a new one
+  // and if there are no new exercises, always pick an old one
+  const pickNewExercise =
+    Math.random() > 0.8 ||
+    (oldDueExercises.length == 0 && newDueExercises.length > 0);
+  console.log("picking new exercise?", pickNewExercise);
+  // always pick the one that has been due the longest
+  if (pickNewExercise) {
+    // pick a new exercise
+    exercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
   } else {
-    numbersList = numberBank
-      .filter((number) => number.stats.length == 0)
-      .sort(() => Math.random() - 0.5);
-  }
-  if (numbersList.length == 0) {
-    console.log(
-      `tried picking a new number ${pickNewNumber}, but there was none, so getting any`
-    );
-    numbersList = numberBank.sort(() => Math.random() - 0.5);
-  }
-  newNumber = numbersList[0];
-
-  // randomly pick a field out of val, ar, ar_long and transliteration
-  const fields = ["val", "ar", "ar_long", "transliteration"];
-  fieldUsedAsPrompt.value = fields[Math.floor(Math.random() * 4)];
-  // pick a nr between 0 and 3 that is not the same as fieldUsedAsPrompt
-  fieldUsedAsAnswer.value = fieldUsedAsPrompt.value;
-  while (fieldUsedAsAnswer.value === fieldUsedAsPrompt.value) {
-    fieldUsedAsAnswer.value = fields[Math.floor(Math.random() * 4)];
+    // pick an old exercise
+    exercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
   }
 
-  prompt.value = newNumber[fieldUsedAsPrompt.value];
-  correctAnswer.value = newNumber[fieldUsedAsAnswer.value];
-
+  fieldUsedAsPrompt = exercise.promptType;
+  fieldUsedAsAnswer = exercise.answerType;
+  prompt = exercise.prompt;
+  correctAnswer = exercise.correctAnswer;
   // have a 4 possible answer fields: one is the correct one, the rest is wrong ones picked from the data
-  possibleAnswers.value = [newNumber[fieldUsedAsAnswer.value]];
+  possibleAnswers = [exercise.correctAnswer];
+  // now, get 3 random wrong answers with the same type as the correct answer
   for (let i = 0; i < 3; i++) {
     let newWrongAnswer =
       numberBank[Math.floor(Math.random() * numberBank.length)][
-        fieldUsedAsAnswer.value
+        exercise.answerType
       ];
-    while (possibleAnswers.value.includes(newWrongAnswer)) {
+    while (
+      possibleAnswers.includes(newWrongAnswer) ||
+      newWrongAnswer == correctAnswer
+    ) {
       newWrongAnswer =
         numberBank[Math.floor(Math.random() * numberBank.length)][
-          fieldUsedAsAnswer.value
+          exercise.answerType
         ];
     }
-    possibleAnswers.value.push(newWrongAnswer);
+    possibleAnswers.push(newWrongAnswer);
   }
-  // shuffle the possible answers
-  possibleAnswers.value.sort(() => Math.random() - 0.5);
-
-  randomNumber.value = newNumber;
-  // save the numberBank to localStorage (doesn't make that much sense here in the code but whatever)
-  localStorage.setItem("numberBank", JSON.stringify(numberBank));
-}
-
-function userSawPromptBefore(prompt) {
-  // check if stats list even exists on this number
-  if (randomNumber.value.length == 5) {
-    // check if the prompt is in the stats list
-    const promptInStats = randomNumber.value[4].find(
-      (entry) => entry.prompt === prompt
-    );
-    if (promptInStats) {
-      return true;
-    }
-  }
-  return false;
 }
 
 let guessMade = ref(false);
@@ -133,41 +130,10 @@ let valueEase = ref(null);
 let valueCorrect = ref(null);
 let valueAnki = ref(null);
 
-getRandomNumber();
+getNextExercise();
 
-function handleAnswer(answer) {
-  guessMade.value = true;
-  givenAnswer.value = answer;
-  const answerWasCorrect = answer === correctAnswer.value;
-  console.log("answer clicked", answer);
-  indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
-  // add or update the statistics object as the last item of the list of the number in numberBank
-  const statsEntry = {
-    date: new Date(),
-    correct: answerWasCorrect,
-    answer: answer,
-    prompt: prompt.value,
-  };
-  randomNumber.value.stats.push(statsEntry);
-  // save to localStorage
-  localStorage.setItem("numberBank", JSON.stringify(numberBank));
-  // if correct, add one to repetitions, otherwise reset
-  randomNumber.value.sr.repetitions = answerWasCorrect
-    ? randomNumber.value.sr.repetitions + 1
-    : 0;
-  // if correct, double interval, if not, half it (min is 10)
-  randomNumber.value.sr.interval = answerWasCorrect
-    ? randomNumber.value.sr.interval * 2 * randomNumber.value.sr.repetitions
-    : Math.max(randomNumber.value.sr.interval / 2, 10);
-  // calculate new dueAt by adding interval in seconds to current time (save as UNIX string)
-  randomNumber.value.sr.dueAt = Math.floor(
-    new Date().getTime() / 1000 + randomNumber.value.sr.interval
-  );
-  // if this was the very first time, just set dueAt to right now anyways
-  if (randomNumber.value.stats.length == 1) {
-    randomNumber.value.sr.dueAt = Math.floor(new Date().getTime() / 1000);
-  }
-  console.log("sr:", randomNumber.value.sr);
+function userSawExerciseBefore() {
+  return exercise.stats.length > 0;
 }
 </script>
 
@@ -175,31 +141,12 @@ function handleAnswer(answer) {
   <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
   <div
     class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col items-center w-3/4 max-w-screen-xl"
+    v-if="exercise"
   >
-    <div class="card-body text-2xl flex gap-1 flex-col items-center" v-if="randomNumber.stats.length == 0">
-    <small>new number:</small>
-      <span class="text-6xl">{{ randomNumber.ar }}</span>
-      <span>{{ randomNumber.val }}</span>
-      <span>{{ randomNumber.ar_long }}</span>
-      <span>{{ randomNumber.transliteration }}</span>
+    <div id="prompt" class="text-2xl">
+      {{ prompt }}
     </div>
-    <div class="card-body" v-else>
-      <div id="prompt" class="text-2xl">
-        {{ prompt }}
-      </div>
-    </div>
-
-    <div class="card-actions"  v-if="randomNumber.stats.length == 0">
-
-      <button
-        class="btn btn-primary mt-4"
-        @click="handleAnswer('Initial Review'); getRandomNumber()"
-      >
-        I'll remember!
-      </button>
-    </div>
-
-    <div class="card-actions flex-col justify-end mt-6 pt-2" v-else>
+    <div class="card-actions flex-col justify-end mt-6 pt-2">
       <button
         class="btn text-2xl w-full max-w-1/3 lowercase"
         :class="{
@@ -220,7 +167,7 @@ function handleAnswer(answer) {
           'shine-button':
             answer === correctAnswer &&
             !guessMade &&
-            !userSawPromptBefore(prompt),
+            !userSawExerciseBefore(prompt),
         }"
         v-for="(answer, index) in possibleAnswers"
         @click="handleAnswer(answer)"
@@ -239,7 +186,12 @@ function handleAnswer(answer) {
   </div>
 
   <footer>
-  <small>More cool stuff at <a class="underline" href="https://koljapluemer.com/">koljapluemer.com</a></small>
+    <small
+      >More cool stuff at
+      <a class="underline" href="https://koljapluemer.com/"
+        >koljapluemer.com</a
+      ></small
+    >
   </footer>
 </template>
 
