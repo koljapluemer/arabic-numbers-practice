@@ -75,7 +75,9 @@ function getNextExercise() {
     (exercise) => exercise.stats.length == 0
   );
   const oldDueExercises = exercises.filter(
-    (exercise) => exercise.stats.length > 0  && exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000)
+    (exercise) =>
+      exercise.stats.length > 0 &&
+      exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000)
   );
   console.log(
     `there are ${newDueExercises.length} new exercises and ${oldDueExercises.length} old exercises`
@@ -91,17 +93,23 @@ function getNextExercise() {
   let pickNewExercise =
     Math.random() > 0.8 ||
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
-  console.log(pickNewExercise ? 'Picking new exercise' : 'Picking old exercise');
+  console.log(
+    pickNewExercise ? "Picking new exercise" : "Picking old exercise"
+  );
   // always pick the one that has been due the longest
-  let newExercise = {}
+  let newExercise = {};
   const randomIndex = Math.floor(Math.random() * 50);
-  console.log('randomIndex', randomIndex);
+  console.log("randomIndex", randomIndex);
   if (pickNewExercise) {
     // pick a new exercise
-    newExercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[Math.min(randomIndex, newDueExercises.length - 1)];
+    newExercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[
+      Math.min(randomIndex, newDueExercises.length - 1)
+    ];
   } else {
     // pick an old exercise
-    newExercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[Math.min(randomIndex, oldDueExercises.length - 1)];
+    newExercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[
+      Math.min(randomIndex, oldDueExercises.length - 1)
+    ];
   }
   exercise.value = newExercise;
   console.log("exercise picked:", exercise);
@@ -135,7 +143,6 @@ function getNextExercise() {
 
 let guessMade = ref(false);
 
-
 getNextExercise();
 
 function userSawExerciseBefore() {
@@ -151,13 +158,21 @@ function handleAnswer(answer) {
   // if answer correct, double interval, if incorrect, half interval (minimum 10)
   if (guessWasCorrect) {
     exercise.value.sr.repetitions++;
-    exercise.value.sr.interval = exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
+    exercise.value.number.level++;
+    exercise.value.sr.interval =
+      exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
   } else {
+    exercise.value.sr.repetitions = 0;
+    // divide level by 2 and round down
+    exercise.value.number.level = Math.floor(
+      exercise.value.number.level / 2
+    );
     exercise.value.sr.interval = Math.max(exercise.value.sr.interval / 2, 10);
   }
 
   // set dueAt to now + interval
-  exercise.value.sr.dueAt = Math.floor(new Date().getTime() / 1000) + exercise.value.sr.interval;
+  exercise.value.sr.dueAt =
+    Math.floor(new Date().getTime() / 1000) + exercise.value.sr.interval;
   const statsObj = {
     guessWasCorrect: guessWasCorrect,
     guess: answer,
@@ -166,18 +181,18 @@ function handleAnswer(answer) {
     promptType: fieldUsedAsPrompt,
     answerType: fieldUsedAsAnswer,
     timestamp: Math.floor(new Date().getTime() / 1000),
-  }
+  };
   exercise.value.stats.push(statsObj);
   console.log("exercise data updated:", exercise);
-
 }
 </script>
 
 <template>
   <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
   <div
-    class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col items-center w-3/4 max-w-screen-xl"
+    class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
     v-if="exercise"
+    style="min-height: 450px"
   >
     <div id="prompt" class="text-2xl">
       {{ prompt }}
@@ -212,12 +227,27 @@ function handleAnswer(answer) {
       </button>
 
       <button
-        class="btn btn-primary mt-4"
+        class="btn btn-primary mt-4 self-end"
         @click="getNextExercise"
         v-if="guessMade"
       >
         Next
       </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-10 gap-2">
+    <div
+      v-for="(number, index) in numbers"
+      :key="index"
+      class="w-10 h-10 flex items-center justify-center bg-gray-900 relative rounded"
+    >
+      <!-- Battery bar -->
+      <div
+        class="absolute inset-0 bg-green-500 bottom-0"
+        :style="{ height: number.level * 10 + '%' }"
+      ></div>
+      {{ number.val }}
     </div>
   </div>
 
