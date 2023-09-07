@@ -13,7 +13,7 @@ let givenAnswer = "";
 let indexOfAnswerClicked = null;
 let unitsPracticedToday = 0;
 let unitsPracticedYesterday = 0;
-let exercise = {};
+const exercise = ref(null);
 // see if numberBank is in localStorage, if so, load it,  if not, set it to the imported numbers (feel free to disable conditional for developing)
 if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBank to the localStorage value
@@ -48,7 +48,7 @@ const possibleExerciseCombinations = [
 console.log("possibleExerciseCombinations", possibleExerciseCombinations);
 for (const number of numberBank) {
   for (const exerciseCombination of possibleExerciseCombinations) {
-    const exercise = {
+    const ex = {
       promptType: exerciseCombination[0],
       answerType: exerciseCombination[1],
       prompt: number[exerciseCombination[0]],
@@ -61,13 +61,15 @@ for (const number of numberBank) {
       },
       number: number,
     };
-    exercises.push(exercise);
+    exercises.push(ex);
   }
 }
 
 console.log("exercises", exercises);
 
 function getNextExercise() {
+  guessMade.value = false;
+
   // new exercises are those whose stats array is empty
   const newDueExercises = exercises.filter(
     (exercise) => exercise.stats.length == 0
@@ -91,26 +93,28 @@ function getNextExercise() {
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
   console.log(pickNewExercise ? 'Picking new exercise' : 'Picking old exercise');
   // always pick the one that has been due the longest
+  let newExercise = {}
   if (pickNewExercise) {
     // pick a new exercise
-    exercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
+    newExercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
   } else {
     // pick an old exercise
-    exercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
+    newExercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
   }
+  exercise.value = newExercise;
   console.log("exercise picked:", exercise);
 
-  fieldUsedAsPrompt = exercise.promptType;
-  fieldUsedAsAnswer = exercise.answerType;
-  prompt = exercise.prompt;
-  correctAnswer = exercise.correctAnswer;
+  fieldUsedAsPrompt = exercise.value.promptType;
+  fieldUsedAsAnswer = exercise.value.answerType;
+  prompt = exercise.value.prompt;
+  correctAnswer = exercise.value.correctAnswer;
   // have a 4 possible answer fields: one is the correct one, the rest is wrong ones picked from the data
-  possibleAnswers = [exercise.correctAnswer];
+  possibleAnswers = [exercise.value.correctAnswer];
   // now, get 3 random wrong answers with the same type as the correct answer
   for (let i = 0; i < 3; i++) {
     let newWrongAnswer =
       numberBank[Math.floor(Math.random() * numberBank.length)][
-        exercise.answerType
+        exercise.value.answerType
       ];
     while (
       possibleAnswers.includes(newWrongAnswer) ||
@@ -118,7 +122,7 @@ function getNextExercise() {
     ) {
       newWrongAnswer =
         numberBank[Math.floor(Math.random() * numberBank.length)][
-          exercise.answerType
+          exercise.value.answerType
         ];
     }
     possibleAnswers.push(newWrongAnswer);
@@ -127,14 +131,11 @@ function getNextExercise() {
 
 let guessMade = ref(false);
 
-let valueEase = ref(null);
-let valueCorrect = ref(null);
-let valueAnki = ref(null);
 
 getNextExercise();
 
 function userSawExerciseBefore() {
-  return exercise.stats.length > 0;
+  return exercise.value.stats.length > 0;
 }
 
 function handleAnswer(answer) {
@@ -145,14 +146,14 @@ function handleAnswer(answer) {
 
   // if answer correct, double interval, if incorrect, half interval (minimum 10)
   if (guessWasCorrect) {
-    exercise.sr.repetitions++;
-    exercise.sr.interval = exercise.sr.interval * 2 * exercise.sr.repetitions;
+    exercise.value.sr.repetitions++;
+    exercise.value.sr.interval = exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
   } else {
-    exercise.sr.interval = Math.max(exercise.sr.interval / 2, 10);
+    exercise.value.sr.interval = Math.max(exercise.value.sr.interval / 2, 10);
   }
 
   // set dueAt to now + interval
-  exercise.sr.dueAt = Math.floor(new Date().getTime() / 1000) + exercise.sr.interval;
+  exercise.value.sr.dueAt = Math.floor(new Date().getTime() / 1000) + exercise.value.sr.interval;
   const statsObj = {
     guessWasCorrect: guessWasCorrect,
     guess: answer,
@@ -162,7 +163,7 @@ function handleAnswer(answer) {
     answerType: fieldUsedAsAnswer,
     timestamp: Math.floor(new Date().getTime() / 1000),
   }
-  exercise.stats.push(statsObj);
+  exercise.value.stats.push(statsObj);
   console.log("exercise data updated:", exercise);
 
 }
