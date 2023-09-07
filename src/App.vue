@@ -88,18 +88,20 @@ function getNextExercise() {
   // pick an old exercise with 80% chance. But:
   // if there are no old exercises, always pick a new one
   // and if there are no new exercises, always pick an old one
-  const pickNewExercise =
+  let pickNewExercise =
     Math.random() > 0.8 ||
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
   console.log(pickNewExercise ? 'Picking new exercise' : 'Picking old exercise');
   // always pick the one that has been due the longest
   let newExercise = {}
+  const randomIndex = Math.floor(Math.random() * 50);
+  console.log('randomIndex', randomIndex);
   if (pickNewExercise) {
     // pick a new exercise
-    newExercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
+    newExercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[Math.min(randomIndex, newDueExercises.length - 1)];
   } else {
     // pick an old exercise
-    newExercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[0];
+    newExercise = oldDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[Math.min(randomIndex, oldDueExercises.length - 1)];
   }
   exercise.value = newExercise;
   console.log("exercise picked:", exercise);
@@ -127,6 +129,8 @@ function getNextExercise() {
     }
     possibleAnswers.push(newWrongAnswer);
   }
+  // shuffle the possible answers
+  possibleAnswers = possibleAnswers.sort(() => Math.random() - 0.5);
 }
 
 let guessMade = ref(false);
