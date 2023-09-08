@@ -250,6 +250,7 @@ function handleAnswer(answer) {
       <div
         class="absolute inset-0 bg-green-500 bottom-0"
         :style="{ height: number.level * 10 + '%' }"
+        style="transition: height 0.5s ease;"
       ></div>
       {{ number.val }}
     </div>
