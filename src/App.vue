@@ -152,7 +152,7 @@ function getNextExercise() {
   // also don't add the answer if it is already in the possible answers
   const possibleMeanAnswerNumber =
     exercise.value.number.val + Math.floor(Math.random() * 7) - 3;
-  if ( possibleMeanAnswerNumber >= 0 &&  possibleMeanAnswerNumber <= 100) {
+  if (possibleMeanAnswerNumber >= 0 && possibleMeanAnswerNumber <= 100) {
     const possibleMeanAnswer =
       numberBank[possibleMeanAnswerNumber][exercise.value.answerType];
     if (!possibleAnswers.includes(possibleMeanAnswer)) {
@@ -284,6 +284,8 @@ function handleAnswer(answer) {
     </div>
   </div>
 
+  <h2 class="text-xl font-bold m-2">Statistics</h2>
+
   <div class="grid grid-cols-10 gap-2">
     <div
       v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
@@ -296,7 +298,9 @@ function handleAnswer(answer) {
         :style="{ height: number.level * 10 + '%' }"
         style="transition: height 0.5s ease"
       ></div>
-      {{ number.val }}
+      <small>
+        {{ number.val }}
+      </small>
     </div>
   </div>
 
