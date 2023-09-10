@@ -120,8 +120,44 @@ function getNextExercise() {
   correctAnswer = exercise.value.correctAnswer;
   // have a 4 possible answer fields: one is the correct one, the rest is wrong ones picked from the data
   possibleAnswers = [exercise.value.correctAnswer];
-  // now, get 3 random wrong answers with the same type as the correct answer
-  for (let i = 0; i < 3; i++) {
+  // try to find a possible answer out of the pool of already practiced numbers (but the type must match):
+  const alreadyPracticedExercises = exercises.filter(
+    (exercise) => exercise.stats.length > 0
+  );
+  console.log(
+    "nr of alreadyPracticedExercises",
+    alreadyPracticedExercises.length
+  );
+  for (let i = 0; i < alreadyPracticedExercises.length; i++) {
+    const alreadyPracticedExercise = alreadyPracticedExercises[i];
+    if (
+      alreadyPracticedExercise.answerType == exercise.value.answerType &&
+      !possibleAnswers.includes(alreadyPracticedExercise.correctAnswer)
+    ) {
+      possibleAnswers.push(alreadyPracticedExercise.correctAnswer);
+      console.log(
+        "found a possible answer from already practiced exercises:",
+        alreadyPracticedExercise.correctAnswer
+      );
+    }
+  }
+  // add a mean possible answer:
+  // randomly pick the nunmber that is either 3, 2, 1 smaller or bigger than the correct answer
+  // catch edge cases (only numbers from 0 to 100 exists)
+  // also don't add the answer if it is already in the possible answers
+  const possibleMeanAnswerNumber =
+    exercise.value.number.val + Math.floor(Math.random() * 7) - 3;
+  if ( possibleMeanAnswerNumber >= 0 &&  possibleMeanAnswerNumber <= 100) {
+    const possibleMeanAnswer =
+      numberBank[possibleMeanAnswerNumber][exercise.value.answerType];
+    if (!possibleAnswers.includes(possibleMeanAnswer)) {
+      possibleAnswers.push(possibleMeanAnswer);
+      console.log("found a possible mean answer:", possibleMeanAnswer);
+    }
+  }
+  const lengthOfPossibleAnswers = possibleAnswers.length;
+  // now, get random wrong answers with the same type as the correct answer (until we have 4 answers)
+  for (let i = 0; i < 4 - lengthOfPossibleAnswers; i++) {
     let newWrongAnswer =
       numberBank[Math.floor(Math.random() * numberBank.length)][
         exercise.value.answerType
@@ -159,18 +195,13 @@ function handleAnswer(answer) {
   if (guessWasCorrect) {
     exercise.value.sr.repetitions++;
     //  max level is 10
-    exercise.value.number.level = Math.min(
-      exercise.value.number.level + 1,
-      10
-    );
+    exercise.value.number.level = Math.min(exercise.value.number.level + 1, 10);
     exercise.value.sr.interval =
       exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
   } else {
     exercise.value.sr.repetitions = 0;
     // divide level by 2 and round down
-    exercise.value.number.level = Math.floor(
-      exercise.value.number.level / 2
-    );
+    exercise.value.number.level = Math.floor(exercise.value.number.level / 2);
     exercise.value.sr.interval = Math.max(exercise.value.sr.interval / 2, 10);
   }
 
@@ -250,7 +281,7 @@ function handleAnswer(answer) {
       <div
         class="absolute inset-0 bg-green-500 bottom-0"
         :style="{ height: number.level * 10 + '%' }"
-        style="transition: height 0.5s ease;"
+        style="transition: height 0.5s ease"
       ></div>
       {{ number.val }}
     </div>
