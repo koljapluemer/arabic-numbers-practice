@@ -14,16 +14,11 @@ let indexOfAnswerClicked = null;
 let unitsPracticedToday = 0;
 let unitsPracticedYesterday = 0;
 const exercise = ref(null);
-// see if numberBank is in localStorage, if so, load it,  if not, set it to the imported numbers (feel free to disable conditional for developing)
-if (localStorage.getItem("numberBank")) {
-  // if it is in localStorage, set the numberBank to the localStorage value
-  // numberBank = JSON.parse(localStorage.getItem("numberBank"));
-}
 
 let exercises = [];
 // loop the number bank, add all possible exercises to the exercises array
 // all possible exercises: all pairs of prompts and answer types (val, ar, ar_long, transliteration)
-// also add a stats and sr property to each exercise, and take the level property from the parent element from numberBack:
+// also add a stats and sr property to each exercise, and take the level property from the parent element from numberBank:
 const possibleExerciseCombinations = [
   ["val", "ar"],
   ["val", "ar_long"],
@@ -66,6 +61,16 @@ for (const number of numberBank) {
 }
 
 console.log("exercises", exercises);
+// see if numberBank is in localStorage, if so, load it,  if not, set it to the imported numbers (feel free to disable conditional for developing)
+if (localStorage.getItem("numberBank")) {
+  // if it is in localStorage, set the numberBank to the localStorage value
+  numberBank = JSON.parse(localStorage.getItem("numberBank"));
+}
+// same for exercises
+if (localStorage.getItem("exercises")) {
+  // if it is in localStorage, set the numberBank to the localStorage value
+  exercises = JSON.parse(localStorage.getItem("exercises"));
+}
 
 function getNextExercise() {
   guessMade.value = false;
@@ -142,7 +147,7 @@ function getNextExercise() {
     }
   }
   // add a mean possible answer:
-  // randomly pick the nunmber that is either 3, 2, 1 smaller or bigger than the correct answer
+  // randomly pick the number that is either 3, 2, 1 smaller or bigger than the correct answer
   // catch edge cases (only numbers from 0 to 100 exists)
   // also don't add the answer if it is already in the possible answers
   const possibleMeanAnswerNumber =
@@ -195,13 +200,18 @@ function handleAnswer(answer) {
   if (guessWasCorrect) {
     exercise.value.sr.repetitions++;
     //  max level is 10
-    exercise.value.number.level = Math.min(exercise.value.number.level + 1, 10);
+    numberBank[exercise.value.number.val].level = Math.min(
+      numberBank[exercise.value.number.val].level + 1,
+      10
+    );
     exercise.value.sr.interval =
       exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
   } else {
     exercise.value.sr.repetitions = 0;
     // divide level by 2 and round down
-    exercise.value.number.level = Math.floor(exercise.value.number.level / 2);
+    numberBank[exercise.value.number.val].level = Math.floor(
+      numberBank[exercise.value.number.val].level / 2
+    );
     exercise.value.sr.interval = Math.max(exercise.value.sr.interval / 2, 10);
   }
 
@@ -219,6 +229,9 @@ function handleAnswer(answer) {
   };
   exercise.value.stats.push(statsObj);
   console.log("exercise data updated:", exercise);
+  // save the numberBank and exercises to localStorage
+  localStorage.setItem("numberBank", JSON.stringify(numberBank));
+  localStorage.setItem("exercises", JSON.stringify(exercises));
 }
 </script>
 
@@ -273,7 +286,7 @@ function handleAnswer(answer) {
 
   <div class="grid grid-cols-10 gap-2">
     <div
-      v-for="(number, index) in numbers"
+      v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
       :key="index"
       class="w-10 h-10 flex items-center justify-center bg-gray-900 relative rounded"
     >
