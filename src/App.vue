@@ -240,7 +240,7 @@ function handleAnswer(answer) {
   <div
     class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
     v-if="exercise"
-    style="min-height: 450px"
+    style="min-height: 390px"
   >
     <div id="prompt" class="text-2xl">
       {{ prompt }}
@@ -288,7 +288,7 @@ function handleAnswer(answer) {
     <div
       v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
       :key="index"
-      class="w-10 h-10 flex items-center justify-center bg-gray-900 relative rounded"
+      class="w-8 h-8 flex items-center justify-center bg-gray-900 relative rounded"
     >
       <!-- Battery bar -->
       <div
