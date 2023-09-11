@@ -3,7 +3,6 @@ import numbers from "./numbers.js";
 import { ref } from "vue";
 
 let numberBank = numbers;
-console.log("numberBank", numberBank);
 let fieldUsedAsPrompt = "";
 let fieldUsedAsAnswer = "";
 let possibleAnswers = [];
@@ -40,7 +39,6 @@ const possibleExerciseCombinations = [
   ["transliteration", "en"],
 ];
 
-console.log("possibleExerciseCombinations", possibleExerciseCombinations);
 for (const number of numberBank) {
   for (const exerciseCombination of possibleExerciseCombinations) {
     const ex = {
@@ -60,7 +58,6 @@ for (const number of numberBank) {
   }
 }
 
-console.log("exercises", exercises);
 // see if numberBank is in localStorage, if so, load it,  if not, set it to the imported numbers (feel free to disable conditional for developing)
 if (localStorage.getItem("numberBank")) {
   // if it is in localStorage, set the numberBank to the localStorage value
@@ -84,9 +81,6 @@ function getNextExercise() {
       exercise.stats.length > 0 &&
       exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000)
   );
-  console.log(
-    `there are ${newDueExercises.length} new exercises and ${oldDueExercises.length} old exercises`
-  );
   // in case there are no exercises due, make a popup and return
   if (newDueExercises.length == 0 && oldDueExercises.length == 0) {
     alert("You have nothing left to do right now! Come back later!");
@@ -98,13 +92,9 @@ function getNextExercise() {
   let pickNewExercise =
     Math.random() > 0.8 ||
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
-  console.log(
-    pickNewExercise ? "Picking new exercise" : "Picking old exercise"
-  );
   // always pick the one that has been due the longest
   let newExercise = {};
   const randomIndex = Math.floor(Math.random() * 50);
-  console.log("randomIndex", randomIndex);
   if (pickNewExercise) {
     // pick a new exercise
     newExercise = newDueExercises.sort((a, b) => a.sr.dueAt - b.sr.dueAt)[
@@ -117,7 +107,6 @@ function getNextExercise() {
     ];
   }
   exercise.value = newExercise;
-  console.log("exercise picked:", exercise);
 
   fieldUsedAsPrompt = exercise.value.promptType;
   fieldUsedAsAnswer = exercise.value.answerType;
@@ -129,10 +118,6 @@ function getNextExercise() {
   const alreadyPracticedExercises = exercises.filter(
     (exercise) => exercise.stats.length > 0
   );
-  console.log(
-    "nr of alreadyPracticedExercises",
-    alreadyPracticedExercises.length
-  );
   for (let i = 0; i < alreadyPracticedExercises.length; i++) {
     const alreadyPracticedExercise = alreadyPracticedExercises[i];
     if (
@@ -140,10 +125,7 @@ function getNextExercise() {
       !possibleAnswers.includes(alreadyPracticedExercise.correctAnswer)
     ) {
       possibleAnswers.push(alreadyPracticedExercise.correctAnswer);
-      console.log(
-        "found a possible answer from already practiced exercises:",
-        alreadyPracticedExercise.correctAnswer
-      );
+      break;
     }
   }
   // add a mean possible answer:
@@ -157,7 +139,6 @@ function getNextExercise() {
       numberBank[possibleMeanAnswerNumber][exercise.value.answerType];
     if (!possibleAnswers.includes(possibleMeanAnswer)) {
       possibleAnswers.push(possibleMeanAnswer);
-      console.log("found a possible mean answer:", possibleMeanAnswer);
     }
   }
   const lengthOfPossibleAnswers = possibleAnswers.length;
@@ -228,7 +209,6 @@ function handleAnswer(answer) {
     timestamp: Math.floor(new Date().getTime() / 1000),
   };
   exercise.value.stats.push(statsObj);
-  console.log("exercise data updated:", exercise);
   // save the numberBank and exercises to localStorage
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
   localStorage.setItem("exercises", JSON.stringify(exercises));
