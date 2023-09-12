@@ -10,10 +10,8 @@ let prompt = "";
 let correctAnswer = "";
 let givenAnswer = "";
 let indexOfAnswerClicked = null;
-let unitsPracticedToday = 0;
-let unitsPracticedYesterday = 0;
 const exercise = ref(null);
-
+let exercisesDoneThisSession = 0;
 let exercises = [];
 // loop the number bank, add all possible exercises to the exercises array
 // all possible exercises: all pairs of prompts and answer types (val, ar, ar_long, transliteration)
@@ -38,6 +36,8 @@ const possibleExerciseCombinations = [
   ["transliteration", "ar_long"],
   ["transliteration", "en"],
 ];
+
+const easyExerciseTypes = ["val", "ar", "transliteration"];
 
 for (const number of numberBank) {
   for (const exerciseCombination of possibleExerciseCombinations) {
@@ -71,12 +71,21 @@ if (localStorage.getItem("exercises")) {
 
 function getNextExercise() {
   guessMade.value = false;
+  let possibleExercises = exercises
+  // for the first 10 exercises, only use easy exercises
+  if (exercisesDoneThisSession < 10) {
+    possibleExercises = exercises.filter(
+      (exercise) =>
+        easyExerciseTypes.includes(exercise.promptType) &&
+        easyExerciseTypes.includes(exercise.answerType)
+    );
+  }
 
   // new exercises are those whose stats array is empty
-  const newDueExercises = exercises.filter(
+  const newDueExercises = possibleExercises.filter(
     (exercise) => exercise.stats.length == 0
   );
-  const oldDueExercises = exercises.filter(
+  const oldDueExercises = possibleExercises.filter(
     (exercise) =>
       exercise.stats.length > 0 &&
       exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000)
@@ -172,6 +181,7 @@ function userSawExerciseBefore() {
 }
 
 function handleAnswer(answer) {
+  exercisesDoneThisSession++;
   const guessWasCorrect = answer === correctAnswer;
   guessMade.value = true;
   givenAnswer = answer;
