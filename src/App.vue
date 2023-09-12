@@ -226,17 +226,36 @@ function handleAnswer(answer) {
 
 function calculateColor(level) {
   // make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow)
-  if (level <= 10) {
-    // yellow!! to green
-    const red = Math.floor(255 - (255 / 10) * level);
-    const green = Math.floor((255 / 10) * level);
-    return `rgb(${red}, ${green}, 0)`;
-  } else {
-    // green to light blue
-    const green = Math.floor(255 - (255 / 90) * (level - 10));
-    const blue = Math.floor((255 / 90) * (level - 10));
-    return `rgb(0, ${green}, ${blue})`;
+  if (level < 0) level = 0;
+  if (level > 100) level = 100;
+
+  // Define the HSL values for the specified levels
+  const levels = {
+    0: { h: 37, s: 89, l: 53 },
+    10: { h: 106, s: 89, l: 53 },
+    100: { h: 205, s: 89, l: 53 }
+  };
+
+  // If the level is one of the specified levels, return the corresponding color
+  if (level in levels) {
+    const { h, s, l } = levels[level];
+    return `hsl(${h}, ${s}%, ${l}%)`;
   }
+
+  // For intermediate levels, interpolate between the specified levels
+  const lowerLevel = Math.floor(level / 10) * 10;
+  const upperLevel = Math.ceil(level / 10) * 10;
+
+  const lowerColor = levels[lowerLevel];
+  const upperColor = levels[upperLevel];
+
+  const fraction = (level - lowerLevel) / (upperLevel - lowerLevel);
+
+  const h = lowerColor.h + (upperColor.h - lowerColor.h) * fraction;
+  const s = lowerColor.s + (upperColor.s - lowerColor.s) * fraction;
+  const l = lowerColor.l + (upperColor.l - lowerColor.l) * fraction;
+
+  return `hsl(${h}, ${s}%, ${l}%)`;
 }
 </script>
 
