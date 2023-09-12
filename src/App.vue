@@ -71,7 +71,7 @@ if (localStorage.getItem("exercises")) {
 
 function getNextExercise() {
   guessMade.value = false;
-  let possibleExercises = exercises
+  let possibleExercises = exercises;
   // for the first 10 exercises, only use easy exercises
   if (exercisesDoneThisSession < 10) {
     possibleExercises = exercises.filter(
@@ -223,6 +223,21 @@ function handleAnswer(answer) {
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
   localStorage.setItem("exercises", JSON.stringify(exercises));
 }
+
+function calculateColor(level) {
+  // make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow)
+  if (level <= 10) {
+    // yellow!! to green
+    const red = Math.floor(255 - (255 / 10) * level);
+    const green = Math.floor((255 / 10) * level);
+    return `rgb(${red}, ${green}, 0)`;
+  } else {
+    // green to light blue
+    const green = Math.floor(255 - (255 / 90) * (level - 10));
+    const blue = Math.floor((255 / 90) * (level - 10));
+    return `rgb(0, ${green}, ${blue})`;
+  }
+}
 </script>
 
 <template>
@@ -283,9 +298,13 @@ function handleAnswer(answer) {
       class="w-8 h-8 flex items-center justify-center bg-gray-900 relative rounded"
     >
       <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
       <div
-        class="absolute inset-0 bg-green-500 bottom-0"
-        :style="{ height: number.level * 10 + '%' }"
+        class="absolute inset-0 bg-yellow-500 bottom-0"
+        :style="{
+          height: number.level * 10 + '%',
+          backgroundColor: calculateColor(number.level),
+        }"
         style="transition: height 0.5s ease"
       ></div>
       <small>
