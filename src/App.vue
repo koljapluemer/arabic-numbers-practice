@@ -197,6 +197,14 @@ function handleAnswer(answer) {
     );
     exercise.value.sr.interval =
       exercise.value.sr.interval * 2 * exercise.value.sr.repetitions;
+    // if the repetition before this one was more than 16h ago, set the interval to at least 16h
+    if (
+      exercise.value.stats.length > 1 &&
+      exercise.value.stats[exercise.value.stats.length - 2].timestamp <
+        Math.floor(new Date().getTime() / 1000) - 16 * 60 * 60
+    ) {
+      exercise.value.sr.interval = Math.max(exercise.value.sr.interval, 16 * 60 * 60);
+    }
   } else {
     exercise.value.sr.repetitions = 0;
     // divide level by 2 and round down
