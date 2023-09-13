@@ -1,6 +1,6 @@
 <script setup>
 import numbers from "./numbers.js";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 let numberBank = numbers;
 let fieldUsedAsPrompt = "";
@@ -36,6 +36,33 @@ const possibleExerciseCombinations = [
   ["transliteration", "ar_long"],
   ["transliteration", "en"],
 ];
+
+const missions = ref({
+  "Exercises Done": {
+    goals: [0, 10, 50, 100, 200, 500, 1000, 10000],
+    progress: 0,
+    currentGoal: 1,
+  },
+  Streak: {
+    goals: [0, 3, 5, 10, 20, 50, 100, 200],
+    progress: 0,
+    currentGoal: 1,
+  },
+})
+// if missions on localStorage, load it 
+if (localStorage.getItem("missions")) {
+  missions.value = JSON.parse(localStorage.getItem("missions"));
+}
+
+// deep watch missions and save to localStorage:
+watch(
+  missions,
+  (newValue) => {
+    localStorage.setItem("missions", JSON.stringify(newValue));
+  },
+  { deep: true }
+);
+
 
 const easyExerciseTypes = ["val", "ar", "transliteration"];
 
@@ -181,6 +208,16 @@ function userSawExerciseBefore() {
 }
 
 function handleAnswer(answer) {
+  // MISSIONS
+  missions.value["Exercises Done"].progress++;
+  if (
+    missions.value["Exercises Done"].progress >=
+    missions.value["Exercises Done"].goals[missions.value["Exercises Done"].currentGoal]
+  ) {
+    missions.value["Exercises Done"].currentGoal++;
+  }
+  // ---- //
+
   exercisesDoneThisSession++;
   const guessWasCorrect = answer === correctAnswer;
   guessMade.value = true;
@@ -189,6 +226,15 @@ function handleAnswer(answer) {
 
   // if answer correct, double interval, if incorrect, half interval (minimum 10)
   if (guessWasCorrect) {
+    // MISSIONS
+    missions.value["Streak"].progress++;
+    if (
+      missions.value["Streak"].progress >=
+      missions.value["Streak"].goals[missions.value["Streak"].currentGoal]
+    ) {
+      missions.value["Streak"].currentGoal++;
+    }
+    // ---- //
     exercise.value.sr.repetitions++;
     //  max level is 10
     numberBank[exercise.value.number.val].level = Math.min(
@@ -203,9 +249,15 @@ function handleAnswer(answer) {
       exercise.value.stats[exercise.value.stats.length - 2].timestamp <
         Math.floor(new Date().getTime() / 1000) - 16 * 60 * 60
     ) {
-      exercise.value.sr.interval = Math.max(exercise.value.sr.interval, 16 * 60 * 60);
+      exercise.value.sr.interval = Math.max(
+        exercise.value.sr.interval,
+        16 * 60 * 60
+      );
     }
   } else {
+    // MISSIONS
+    missions.value["Streak"].progress = 0;
+    // ---- //
     exercise.value.sr.repetitions = 0;
     // divide level by 2 and round down
     numberBank[exercise.value.number.val].level = Math.floor(
@@ -241,7 +293,7 @@ function calculateColor(level) {
   const levels = {
     0: { h: 37, s: 89, l: 53 },
     10: { h: 106, s: 89, l: 53 },
-    100: { h: 205, s: 89, l: 53 }
+    100: { h: 205, s: 89, l: 53 },
   };
 
   // If the level is one of the specified levels, return the corresponding color
@@ -314,6 +366,21 @@ function calculateColor(level) {
         Next
       </button>
     </div>
+  </div>
+
+  <h2 class="text-xl font-bold m-2">Missions</h2>
+
+  <div class="m-2 w-full max-w-md" v-for="(mission, name) in missions">
+    {{ name }}
+    <!-- progress bar: -->
+    <progress
+      class="w-full"
+      :value="
+        mission.progress - mission.goals[mission.currentGoal - 1]
+      "
+      :max="mission.goals[mission.currentGoal]"
+    ></progress>
+    {{ mission.progress }} / {{ mission.goals[mission.currentGoal] }}
   </div>
 
   <h2 class="text-xl font-bold m-2">Statistics</h2>
