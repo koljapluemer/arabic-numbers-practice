@@ -4,13 +4,13 @@ import { ref, watch } from "vue";
 import { supabase } from "./lib/supabaseClient";
 
 let numberBank = numbers;
-let fieldUsedAsPrompt = "";
-let fieldUsedAsAnswer = "";
-let possibleAnswers = [];
-let prompt = "";
-let correctAnswer = "";
-let givenAnswer = "";
-let indexOfAnswerClicked = null;
+let fieldUsedAsPrompt = ref("");
+let fieldUsedAsAnswer = ref("");
+let possibleAnswers = ref([])
+let prompt = ref("");
+let correctAnswer = ref("");
+let givenAnswer = ref("");
+let indexOfAnswerClicked = ref(null);
 const exercise = ref(null);
 let exercisesDoneThisSession = 0;
 let exercises = [];
@@ -153,12 +153,12 @@ function getNextExercise() {
   }
   exercise.value = newExercise;
 
-  fieldUsedAsPrompt = exercise.value.promptType;
-  fieldUsedAsAnswer = exercise.value.answerType;
-  prompt = exercise.value.prompt;
-  correctAnswer = exercise.value.correctAnswer;
+  fieldUsedAsPrompt.value = exercise.value.promptType;
+  fieldUsedAsAnswer.value = exercise.value.answerType;
+  prompt.value = exercise.value.prompt;
+  correctAnswer.value = exercise.value.correctAnswer;
   // have a 4 possible answer fields: one is the correct one, the rest is wrong ones picked from the data
-  possibleAnswers = [exercise.value.correctAnswer];
+  possibleAnswers.value = [exercise.value.correctAnswer];
   // try to find a possible answer out of the pool of already practiced numbers (but the type must match):
   const alreadyPracticedExercises = exercises.filter(
     (exercise) => exercise.stats.length > 0
@@ -167,9 +167,9 @@ function getNextExercise() {
     const alreadyPracticedExercise = alreadyPracticedExercises[i];
     if (
       alreadyPracticedExercise.answerType == exercise.value.answerType &&
-      !possibleAnswers.includes(alreadyPracticedExercise.correctAnswer)
+      !possibleAnswers.value.includes(alreadyPracticedExercise.correctAnswer)
     ) {
-      possibleAnswers.push(alreadyPracticedExercise.correctAnswer);
+      possibleAnswers.value.push(alreadyPracticedExercise.correctAnswer);
       break;
     }
   }
@@ -182,11 +182,11 @@ function getNextExercise() {
   if (possibleMeanAnswerNumber >= 0 && possibleMeanAnswerNumber <= 100) {
     const possibleMeanAnswer =
       numberBank[possibleMeanAnswerNumber][exercise.value.answerType];
-    if (!possibleAnswers.includes(possibleMeanAnswer)) {
-      possibleAnswers.push(possibleMeanAnswer);
+    if (!possibleAnswers.value.includes(possibleMeanAnswer)) {
+      possibleAnswers.value.push(possibleMeanAnswer);
     }
   }
-  const lengthOfPossibleAnswers = possibleAnswers.length;
+  const lengthOfPossibleAnswers = possibleAnswers.value.length;
   // now, get random wrong answers with the same type as the correct answer (until we have 4 answers)
   for (let i = 0; i < 4 - lengthOfPossibleAnswers; i++) {
     let newWrongAnswer =
@@ -194,18 +194,18 @@ function getNextExercise() {
         exercise.value.answerType
       ];
     while (
-      possibleAnswers.includes(newWrongAnswer) ||
-      newWrongAnswer == correctAnswer
+      possibleAnswers.value.includes(newWrongAnswer) ||
+      newWrongAnswer == correctAnswer.value
     ) {
       newWrongAnswer =
         numberBank[Math.floor(Math.random() * numberBank.length)][
           exercise.value.answerType
         ];
     }
-    possibleAnswers.push(newWrongAnswer);
+    possibleAnswers.value.push(newWrongAnswer);
   }
   // shuffle the possible answers
-  possibleAnswers = possibleAnswers.sort(() => Math.random() - 0.5);
+  possibleAnswers.value = possibleAnswers.value.sort(() => Math.random() - 0.5);
 }
 
 let guessMade = ref(false);
@@ -230,10 +230,10 @@ async function handleAnswer(answer) {
   // ---- //
 
   exercisesDoneThisSession++;
-  const guessWasCorrect = answer === correctAnswer;
+  const guessWasCorrect = answer === correctAnswer.value;
   guessMade.value = true;
-  givenAnswer = answer;
-  indexOfAnswerClicked = possibleAnswers.indexOf(answer);
+  givenAnswer.value = answer;
+  indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
 
   // if answer correct, double interval, if incorrect, half interval (minimum 10)
   if (guessWasCorrect) {
@@ -283,10 +283,10 @@ async function handleAnswer(answer) {
   const statsObj = {
     guessWasCorrect: guessWasCorrect,
     guess: answer,
-    correctAnswer: correctAnswer,
+    correctAnswer: correctAnswer.value,
     prompt: prompt,
-    promptType: fieldUsedAsPrompt,
-    answerType: fieldUsedAsAnswer,
+    promptType: fieldUsedAsPrompt.value,
+    answerType: fieldUsedAsAnswer.value,
     timestamp: Math.floor(new Date().getTime() / 1000),
   };
   exercise.value.stats.push(statsObj);
