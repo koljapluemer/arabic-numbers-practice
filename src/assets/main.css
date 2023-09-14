@@ -25,3 +25,29 @@
         left: 350%;
     }
 }
+
+@keyframes wiggle {
+    40% {
+      transform: translateX(0);
+    }
+    45% {
+      transform: translateX(-2px) rotate(2deg);
+    }
+    50% {
+      transform: translateX(2px) rotate(-2deg);
+    }
+    55% {
+      transform: translateX(-2px) rotate(2deg);
+    }
+    60% {
+      transform: translateX(2px) rotate(-2deg);
+    }
+    65% {
+      transform: translateX(0);
+    }
+  }
+
+  .wiggle-button {
+    animation: wiggle 2s infinite;
+    animation-delay: 3.5s; /* Delay the animation by 2 seconds */
+  }

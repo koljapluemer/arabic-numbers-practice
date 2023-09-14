@@ -391,7 +391,7 @@ function convertNumberToArabicScript(number) {
               answer === correctAnswer &&
               givenAnswer !== correctAnswer,
             'text-3xl': fieldUsedAsAnswer == 2,
-            'shine-button':
+            'shine-button wiggle-button':
               answer === correctAnswer &&
               !guessMade &&
               !userSawExerciseBefore(prompt),
