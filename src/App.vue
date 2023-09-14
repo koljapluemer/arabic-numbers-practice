@@ -48,8 +48,8 @@ const missions = ref({
     progress: 0,
     currentGoal: 1,
   },
-})
-// if missions on localStorage, load it 
+});
+// if missions on localStorage, load it
 if (localStorage.getItem("missions")) {
   missions.value = JSON.parse(localStorage.getItem("missions"));
 }
@@ -62,7 +62,6 @@ watch(
   },
   { deep: true }
 );
-
 
 const easyExerciseTypes = ["val", "ar", "transliteration"];
 
@@ -212,7 +211,9 @@ function handleAnswer(answer) {
   missions.value["Exercises Done"].progress++;
   if (
     missions.value["Exercises Done"].progress >=
-    missions.value["Exercises Done"].goals[missions.value["Exercises Done"].currentGoal]
+    missions.value["Exercises Done"].goals[
+      missions.value["Exercises Done"].currentGoal
+    ]
   ) {
     missions.value["Exercises Done"].currentGoal++;
   }
@@ -317,6 +318,27 @@ function calculateColor(level) {
 
   return `hsl(${h}, ${s}%, ${l}%)`;
 }
+
+function convertNumberToArabicScript(number) {
+  const arabicNumbers = {
+    0: "٠",
+    1: "١",
+    2: "٢",
+    3: "٣",
+    4: "٤",
+    5: "٥",
+    6: "٦",
+    7: "٧",
+    8: "٨",
+    9: "٩",
+  };
+  const numberAsString = number.toString();
+  let arabicNumber = "";
+  for (let i = 0; i < numberAsString.length; i++) {
+    arabicNumber += arabicNumbers[numberAsString[i]];
+  }
+  return arabicNumber;
+}
 </script>
 
 <template>
@@ -375,12 +397,11 @@ function calculateColor(level) {
     <!-- progress bar: -->
     <progress
       class="w-full"
-      :value="
-        mission.progress - mission.goals[mission.currentGoal - 1]
-      "
+      :value="mission.progress - mission.goals[mission.currentGoal - 1]"
       :max="mission.goals[mission.currentGoal]"
     ></progress>
-    {{ mission.progress }} / {{ mission.goals[mission.currentGoal] }}
+    {{ convertNumberToArabicScript(mission.progress) }} /
+    {{ convertNumberToArabicScript(mission.goals[mission.currentGoal]) }}
   </div>
 
   <h2 class="text-xl font-bold m-2">Statistics</h2>
