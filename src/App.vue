@@ -6,7 +6,7 @@ import { supabase } from "./lib/supabaseClient";
 let numberBank = numbers;
 let fieldUsedAsPrompt = ref("");
 let fieldUsedAsAnswer = ref("");
-let possibleAnswers = ref([])
+let possibleAnswers = ref([]);
 let prompt = ref("");
 let correctAnswer = ref("");
 let givenAnswer = ref("");
@@ -363,92 +363,93 @@ function convertNumberToArabicScript(number) {
 </script>
 
 <template>
-  <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
-  <div
-    class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
-    v-if="exercise"
-    style="min-height: 390px"
-  >
-    <div id="prompt" class="text-2xl">
-      {{ prompt }}
-    </div>
-    <div class="card-actions flex-col justify-end mt-6 pt-2">
-      <button
-        class="btn text-2xl w-full max-w-1/3 lowercase"
-        :class="{
-          'btn-success':
-            guessMade &&
-            index == indexOfAnswerClicked &&
-            givenAnswer === correctAnswer,
-          'btn-error':
-            guessMade &&
-            index == indexOfAnswerClicked &&
-            givenAnswer !== correctAnswer,
-          'btn-info':
-            guessMade &&
-            index != indexOfAnswerClicked &&
-            answer === correctAnswer &&
-            givenAnswer !== correctAnswer,
-          'text-3xl': fieldUsedAsAnswer == 2,
-          'shine-button':
-            answer === correctAnswer &&
-            !guessMade &&
-            !userSawExerciseBefore(prompt),
-        }"
-        v-for="(answer, index) in possibleAnswers"
-        @click="handleAnswer(answer)"
-      >
-        {{ answer }}
-      </button>
-
-      <button
-        class="btn btn-primary mt-4 self-end"
-        @click="getNextExercise"
-        v-if="guessMade"
-      >
-        Next
-      </button>
-    </div>
-  </div>
-
-  <h2 class="text-xl font-bold m-2">Missions</h2>
-  <div class="m-2 w-full max-w-md" v-for="(mission, name) in missions">
-    {{ name }}
-    <!-- progress bar: -->
-    <progress
-      class="w-full"
-      :value="mission.progress"
-      :max="mission.goals[mission.currentGoal]"
-    ></progress>
-
-    {{ convertNumberToArabicScript(mission.progress) }} /
-    {{ convertNumberToArabicScript(mission.goals[mission.currentGoal]) }}
-  </div>
-
-  <h2 class="text-xl font-bold m-2">Statistics</h2>
-
-  <div class="grid grid-cols-10 gap-2">
+  <main class="p-2">
+    <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
     <div
-      v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
-      :key="index"
-      class="w-8 h-8 flex items-center justify-center bg-gray-900 relative rounded"
+      class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
+      v-if="exercise"
+      style="min-height: 390px"
     >
-      <!-- Battery bar -->
-      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
-      <div
-        class="absolute inset-0 bg-yellow-500 bottom-0"
-        :style="{
-          height: number.level * 10 + '%',
-          backgroundColor: calculateColor(number.level),
-        }"
-        style="transition: height 0.5s ease"
-      ></div>
-      <small>
-        {{ number.val }}
-      </small>
-    </div>
-  </div>
+      <div id="prompt" class="text-2xl">
+        {{ prompt }}
+      </div>
+      <div class="card-actions flex-col justify-end mt-6 pt-2">
+        <button
+          class="btn text-2xl w-full max-w-1/3 lowercase"
+          :class="{
+            'btn-success':
+              guessMade &&
+              index == indexOfAnswerClicked &&
+              givenAnswer === correctAnswer,
+            'btn-error':
+              guessMade &&
+              index == indexOfAnswerClicked &&
+              givenAnswer !== correctAnswer,
+            'btn-info':
+              guessMade &&
+              index != indexOfAnswerClicked &&
+              answer === correctAnswer &&
+              givenAnswer !== correctAnswer,
+            'text-3xl': fieldUsedAsAnswer == 2,
+            'shine-button':
+              answer === correctAnswer &&
+              !guessMade &&
+              !userSawExerciseBefore(prompt),
+          }"
+          v-for="(answer, index) in possibleAnswers"
+          @click="handleAnswer(answer)"
+        >
+          {{ answer }}
+        </button>
 
+        <button
+          class="btn btn-primary mt-4 self-end"
+          @click="getNextExercise"
+          v-if="guessMade"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <h2 class="text-xl font-bold m-2">Missions</h2>
+    <div class="m-2 flex flex-col max-w-md" v-for="(mission, name) in missions">
+      {{ name }}
+      <!-- progress bar: -->
+      <progress
+        class="w-full"
+        :value="mission.progress"
+        :max="mission.goals[mission.currentGoal]"
+      ></progress>
+
+      {{ convertNumberToArabicScript(mission.progress) }} /
+      {{ convertNumberToArabicScript(mission.goals[mission.currentGoal]) }}
+    </div>
+
+    <h2 class="text-xl font-bold m-2">Statistics</h2>
+
+    <div class="grid grid-cols-10 gap-2">
+      <div
+        v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
+        :key="index"
+        class="w-8 h-8 flex items-center justify-center bg-gray-900 relative rounded"
+      >
+        <!-- Battery bar -->
+        <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+        <div
+          class="absolute inset-0 bg-yellow-500 bottom-0"
+          :style="{
+            height: number.level * 10 + '%',
+            backgroundColor: calculateColor(number.level),
+          }"
+          style="transition: height 0.5s ease"
+        ></div>
+        <small>
+          {{ number.val }}
+        </small>
+      </div>
+    </div>
+  </main>
   <footer>
     <small
       >More cool stuff at
