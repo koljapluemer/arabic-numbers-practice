@@ -1,6 +1,7 @@
 <script setup>
 import numbers from "./numbers.js";
 import { ref, watch } from "vue";
+import { supabase } from "./lib/supabaseClient";
 
 let numberBank = numbers;
 let fieldUsedAsPrompt = "";
@@ -52,6 +53,15 @@ const missions = ref({
 // if missions on localStorage, load it
 if (localStorage.getItem("missions")) {
   missions.value = JSON.parse(localStorage.getItem("missions"));
+}
+
+// if uid is not in localStorage, create one and save
+let uid;
+if (localStorage.getItem("uid")) {
+  uid = localStorage.getItem("uid");
+} else {
+  uid = Math.random().toString(36).substring(2, 15);
+  localStorage.setItem("uid", uid);
 }
 
 // deep watch missions and save to localStorage:
@@ -206,7 +216,7 @@ function userSawExerciseBefore() {
   return exercise.value.stats.length > 0;
 }
 
-function handleAnswer(answer) {
+async function handleAnswer(answer) {
   // MISSIONS
   missions.value["Exercises Done"].progress++;
   if (
@@ -283,6 +293,16 @@ function handleAnswer(answer) {
   // save the numberBank and exercises to localStorage
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
   localStorage.setItem("exercises", JSON.stringify(exercises));
+  try {
+    const { data, error } = await supabase.from("learning_data").insert([
+      {
+        user_uid: uid,
+        learning_result: JSON.stringify(statsObj),
+      },
+    ]);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function calculateColor(level) {
