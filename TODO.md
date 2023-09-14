@@ -3,6 +3,7 @@
 
 ## should
 
+* introduce harder exercises more often the more the user gets right? Is there a research on how to do this ideally? But thinking about, this is such a trivial game mechanic (rarely done in SR though, maybe at the end of duolingo lessons is a *kind of* implementation of this...)
 
 ## could
 

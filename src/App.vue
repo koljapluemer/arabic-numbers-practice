@@ -393,7 +393,7 @@ function convertNumberToArabicScript(number) {
       </div>
       <div class="card-actions flex-col justify-end mt-6 pt-2">
         <button
-        style="line-height: 1em"
+          style="line-height: 1em"
           class="btn text-2xl w-full max-w-1/3 lowercase p-2"
           :class="{
             'btn-success':
@@ -469,13 +469,22 @@ function convertNumberToArabicScript(number) {
       </div>
     </div>
   </main>
-  <footer>
-    <small
-      >More cool stuff at
-      <a class="underline" href="https://koljapluemer.com/"
-        >koljapluemer.com</a
-      ></small
-    >
+  <footer class="border-t-2 pt-2 w-full max-w-sm text-sm">
+    <ul class="flex flex-col gap-2">
+    <li>
+    Made by <a class="underline" href="hello@koljapluemer.com">Kolja Sam Pluemer</a>.
+    </li>
+      <li>Pseudonymous learning is transmitted to improve the app. No personal data leaves your device.</li>
+      <li>
+        you may also enjoy: <a class="underline" href="https://arabic-pronounciation.koljapluemer.com/">Arabic Pronunciation Tutor (WIP)</a>.
+      </li>
+      <li>
+        More cool stuff at
+        <a class="underline" href="https://koljapluemer.com/"
+          >koljapluemer.com</a
+        >.
+      </li>
+    </ul>
   </footer>
 </template>
 
