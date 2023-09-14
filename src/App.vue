@@ -231,6 +231,7 @@ async function handleAnswer(answer) {
 
   exercisesDoneThisSession++;
   const guessWasCorrect = answer === correctAnswer.value;
+  console.log("guessWasCorrect", guessWasCorrect);
   guessMade.value = true;
   givenAnswer.value = answer;
   indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
@@ -411,15 +412,15 @@ function convertNumberToArabicScript(number) {
   </div>
 
   <h2 class="text-xl font-bold m-2">Missions</h2>
-
   <div class="m-2 w-full max-w-md" v-for="(mission, name) in missions">
     {{ name }}
     <!-- progress bar: -->
     <progress
       class="w-full"
-      :value="mission.progress - mission.goals[mission.currentGoal - 1]"
+      :value="mission.progress"
       :max="mission.goals[mission.currentGoal]"
     ></progress>
+
     {{ convertNumberToArabicScript(mission.progress) }} /
     {{ convertNumberToArabicScript(mission.goals[mission.currentGoal]) }}
   </div>
