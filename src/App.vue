@@ -121,10 +121,14 @@ function getNextExercise() {
   const newDueExercises = possibleExercises.filter(
     (exercise) => exercise.stats.length == 0
   );
+  // also check if parent number is due (or due is null)
   const oldDueExercises = possibleExercises.filter(
     (exercise) =>
       exercise.stats.length > 0 &&
-      exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000)
+      exercise.sr.dueAt <= Math.floor(new Date().getTime() / 1000) &&
+      (numberBank[exercise.number.val].sr.dueAt <=
+        Math.floor(new Date().getTime() / 1000) ||
+        numberBank[exercise.number.val].sr.dueAt == null)
   );
   // in case there are no exercises due, make a popup and return
   if (newDueExercises.length == 0 && oldDueExercises.length == 0) {
@@ -266,6 +270,9 @@ async function handleAnswer(answer) {
         16 * 60 * 60
       );
     }
+    // also double the sr.interval of the parent number
+    numberBank[exercise.value.number.val].sr.interval =
+      numberBank[exercise.value.number.val].sr.interval * 2;
   } else {
     // MISSIONS
     missions.value["Streak"].progress = 0;
@@ -276,6 +283,9 @@ async function handleAnswer(answer) {
       numberBank[exercise.value.number.val].level / 2
     );
     exercise.value.sr.interval = Math.max(exercise.value.sr.interval / 2, 10);
+    // also reset parent number interval
+    numberBank[exercise.value.number.val].sr.interval =
+      numberBank[exercise.value.number.val].sr.interval / 2;
   }
 
   // set dueAt to now + interval
@@ -291,6 +301,14 @@ async function handleAnswer(answer) {
     timestamp: Math.floor(new Date().getTime() / 1000),
   };
   exercise.value.stats.push(statsObj);
+  // set dueAt of parent exercise
+  numberBank[exercise.value.number.val].sr.dueAt =
+    Math.floor(new Date().getTime() / 1000) +
+    numberBank[exercise.value.number.val].sr.interval;
+  console.log(
+    `parent number ${exercise.value.number.val} due at:`,
+    numberBank[exercise.value.number.val].sr.dueAt.toString()
+  );
   // save the numberBank and exercises to localStorage
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
   localStorage.setItem("exercises", JSON.stringify(exercises));
@@ -375,7 +393,8 @@ function convertNumberToArabicScript(number) {
       </div>
       <div class="card-actions flex-col justify-end mt-6 pt-2">
         <button
-          class="btn text-2xl w-full max-w-1/3 lowercase"
+        style="line-height: 1em"
+          class="btn text-2xl w-full max-w-1/3 lowercase p-2"
           :class="{
             'btn-success':
               guessMade &&
