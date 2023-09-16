@@ -14,6 +14,7 @@ let indexOfAnswerClicked = ref(null);
 const exercise = ref(null);
 let exercisesDoneThisSession = 0;
 let exercises = [];
+let streak = ref(0);
 // loop the number bank, add all possible exercises to the exercises array
 // all possible exercises: all pairs of prompts and answer types (val, ar, ar_long, transliteration)
 // also add a stats and sr property to each exercise, and take the level property from the parent element from numberBank:
@@ -138,8 +139,10 @@ function getNextExercise() {
   // pick an old exercise with 80% chance. But:
   // if there are no old exercises, always pick a new one
   // and if there are no new exercises, always pick an old one
+  // also, the longer streak goes one, the likelier that we pick a new exercise
+  const forNewExerciseMustBeLargerThan = Math.max(0.8 - streak.value * 0.03, .1);
   let pickNewExercise =
-    Math.random() > 0.8 ||
+    Math.random() > forNewExerciseMustBeLargerThan ||
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
   // always pick the one that has been due the longest
   let newExercise = {};
@@ -235,13 +238,13 @@ async function handleAnswer(answer) {
 
   exercisesDoneThisSession++;
   const guessWasCorrect = answer === correctAnswer.value;
-  console.log("guessWasCorrect", guessWasCorrect);
   guessMade.value = true;
   givenAnswer.value = answer;
   indexOfAnswerClicked.value = possibleAnswers.value.indexOf(answer);
 
   // if answer correct, double interval, if incorrect, half interval (minimum 10)
   if (guessWasCorrect) {
+    streak.value++;
     // MISSIONS
     missions.value["Streak"].progress++;
     if (
@@ -274,6 +277,7 @@ async function handleAnswer(answer) {
     numberBank[exercise.value.number.val].sr.interval =
       numberBank[exercise.value.number.val].sr.interval * 2;
   } else {
+    streak.value = 0;
     // MISSIONS
     missions.value["Streak"].progress = 0;
     // ---- //
@@ -305,10 +309,6 @@ async function handleAnswer(answer) {
   numberBank[exercise.value.number.val].sr.dueAt =
     Math.floor(new Date().getTime() / 1000) +
     numberBank[exercise.value.number.val].sr.interval;
-  console.log(
-    `parent number ${exercise.value.number.val} due at:`,
-    numberBank[exercise.value.number.val].sr.dueAt.toString()
-  );
   // save the numberBank and exercises to localStorage
   localStorage.setItem("numberBank", JSON.stringify(numberBank));
   localStorage.setItem("exercises", JSON.stringify(exercises));
@@ -320,7 +320,7 @@ async function handleAnswer(answer) {
       },
     ]);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -412,6 +412,7 @@ function convertNumberToArabicScript(number) {
             'text-3xl': fieldUsedAsAnswer == 2,
             'shine-button wiggle-button':
               answer === correctAnswer &&
+              streak < 3 &&
               !guessMade &&
               !userSawExerciseBefore(prompt),
           }"
@@ -485,6 +486,7 @@ function convertNumberToArabicScript(number) {
         >.
       </li>
     </ul>
+    {{ streak }}
   </footer>
 </template>
 
