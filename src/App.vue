@@ -473,8 +473,12 @@ function convertNumberToArabicScript(number) {
       </div>
     </div>
   </main>
-  <footer class="border-t-2 pt-2 w-full max-w-sm text-sm">
+  <footer class="border-t-2 mt-10 w-full p-4 text-sm">
     <ul class="flex flex-col gap-2">
+      <li>
+        Transliterations are Egyptian Arabic. For now. I'm working on an option
+        to choose between different dialects.
+      </li>
       <li>
         Made by
         <a class="underline" href="hello@koljapluemer.com">Kolja Sam Pluemer</a
@@ -499,7 +503,6 @@ function convertNumberToArabicScript(number) {
         >.
       </li>
     </ul>
-    {{ streak }}
   </footer>
 </template>
 
