@@ -464,9 +464,6 @@ function convertNumberToArabicScript(number) {
           }"
           style="transition: height 0.5s ease"
         ></div>
-        <small>
-          {{ number.val }}
-        </small>
       </div>
     </div>
   </main>
