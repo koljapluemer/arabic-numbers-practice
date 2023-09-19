@@ -140,7 +140,10 @@ function getNextExercise() {
   // if there are no old exercises, always pick a new one
   // and if there are no new exercises, always pick an old one
   // also, the longer streak goes one, the likelier that we pick a new exercise
-  const forNewExerciseMustBeLargerThan = Math.max(0.8 - streak.value * 0.03, .1);
+  const forNewExerciseMustBeLargerThan = Math.max(
+    0.8 - streak.value * 0.03,
+    0.1
+  );
   let pickNewExercise =
     Math.random() > forNewExerciseMustBeLargerThan ||
     (oldDueExercises.length == 0 && newDueExercises.length > 0);
@@ -382,13 +385,16 @@ function convertNumberToArabicScript(number) {
 
 <template>
   <main class="p-2">
-    <!-- <small> Practiced {{ stats.counter }} times so far </small> -->
     <div
       class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
       v-if="exercise"
       style="min-height: 390px"
     >
-      <div id="prompt" class="text-2xl">
+      <p class="border-b p-2" v-if="exercisesDoneThisSession < 3">
+        Select the matching answers out of the four options below. If you are
+        not sure, just guess!
+      </p>
+      <div id="prompt" class="text-3xl p-2">
         {{ prompt }}
       </div>
       <div class="card-actions flex-col justify-end mt-6 pt-2">
@@ -448,7 +454,7 @@ function convertNumberToArabicScript(number) {
 
     <h2 class="text-xl font-bold m-2">Statistics</h2>
 
-    <div class="grid grid-cols-10 gap-2">
+    <div class="grid gap-2" style="grid-template-columns: repeat(10, 2rem)">
       <div
         v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
         :key="index"
@@ -469,12 +475,22 @@ function convertNumberToArabicScript(number) {
   </main>
   <footer class="border-t-2 pt-2 w-full max-w-sm text-sm">
     <ul class="flex flex-col gap-2">
-    <li>
-    Made by <a class="underline" href="hello@koljapluemer.com">Kolja Sam Pluemer</a>.
-    </li>
-      <li>Pseudonymous learning is transmitted to improve the app. No personal data leaves your device.</li>
       <li>
-        you may also enjoy: <a class="underline" href="https://arabic-pronounciation.koljapluemer.com/">Arabic Pronunciation Tutor (WIP)</a>.
+        Made by
+        <a class="underline" href="hello@koljapluemer.com">Kolja Sam Pluemer</a
+        >.
+      </li>
+      <li>
+        Pseudonymous learning is transmitted to improve the app. No personal
+        data leaves your device.
+      </li>
+      <li>
+        you may also enjoy:
+        <a
+          class="underline"
+          href="https://arabic-pronounciation.koljapluemer.com/"
+          >Arabic Pronunciation Tutor (WIP)</a
+        >.
       </li>
       <li>
         More cool stuff at
