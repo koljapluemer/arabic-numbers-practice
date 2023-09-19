@@ -11,3 +11,4 @@
 * implement good mastery mechanic for numbers
 - possibly lingers too long on a number? (think it's fixed)
 * have a toggle for localstorage
+* could also do leeches instead of only new exercises...although that's sort of how SR is supposed to work anyways...
