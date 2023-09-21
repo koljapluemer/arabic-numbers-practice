@@ -384,7 +384,7 @@ function convertNumberToArabicScript(number) {
 </script>
 
 <template>
-  <main class="p-2">
+  <main class="p-2 flex flex-col items-center">
     <div
       class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
       v-if="exercise"
@@ -454,11 +454,11 @@ function convertNumberToArabicScript(number) {
 
     <h2 class="text-xl font-bold m-2">Statistics</h2>
 
-    <div class="grid gap-2" style="grid-template-columns: repeat(10, 2rem)">
+    <div class="grid gap-2" style="grid-template-columns: repeat(10, 1rem)">
       <div
         v-for="(number, index) in numberBank.sort((a, b) => a.val - b.val)"
         :key="index"
-        class="w-8 h-8 flex items-center justify-center bg-gray-900 relative rounded"
+        class="w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded"
       >
         <!-- Battery bar -->
         <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
