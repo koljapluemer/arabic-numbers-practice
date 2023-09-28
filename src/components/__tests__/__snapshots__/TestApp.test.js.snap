@@ -1,0 +1,542 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > renders correctly 1`] = `
+"<main class=\\"p-2 flex flex-col items-center\\">
+  <div class=\\"card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl\\" style=\\"min-height: 390px;\\">
+    <p class=\\"border-b p-2\\"> Select the matching answers out of the four options below. If you are not sure, just guess! </p>
+    <div id=\\"prompt\\" class=\\"text-3xl p-2\\">4</div>
+    <div class=\\"card-actions flex-col justify-end mt-6 pt-2\\"><button style=\\"line-height: 1em;\\" class=\\"btn text-2xl w-full max-w-1/3 lowercase p-2\\">itna 'ashar</button><button style=\\"line-height: 1em;\\" class=\\"btn text-2xl w-full max-w-1/3 lowercase p-2\\">arba'a w'saba'een</button><button style=\\"line-height: 1em;\\" class=\\"btn text-2xl w-full max-w-1/3 lowercase p-2\\">khamsa</button><button style=\\"line-height: 1em;\\" class=\\"btn text-2xl w-full max-w-1/3 lowercase p-2 shine-button wiggle-button\\">arba'a</button>
+      <!--v-if-->
+    </div>
+  </div>
+  <h2 class=\\"text-xl font-bold m-2\\">Missions</h2>
+  <div class=\\"m-2 flex flex-col max-w-md\\">Exercises Done
+    <!-- progress bar: --><progress class=\\"w-full\\" max=\\"10\\" value=\\"0\\"></progress> ٠ / ١٠
+  </div>
+  <div class=\\"m-2 flex flex-col max-w-md\\">Streak
+    <!-- progress bar: --><progress class=\\"w-full\\" max=\\"3\\" value=\\"0\\"></progress> ٠ / ٣
+  </div>
+  <h2 class=\\"text-xl font-bold m-2\\">Statistics</h2>
+  <div class=\\"grid gap-2\\" style=\\"grid-template-columns: repeat(10, 1rem);\\">
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+    <div class=\\"w-4 h-4 flex items-center justify-center bg-gray-900 relative rounded\\">
+      <!-- Battery bar -->
+      <!-- make the bar go from 0=yellow to 10=green to 100=light-blue smoothly (so for example five will be a greenish yellow) -->
+      <div class=\\"absolute inset-0 bg-yellow-500 bottom-0\\" style=\\"height: 0%; background-color: hsl(37, 89%, 53%); transition: height 0.5s ease;\\"></div>
+    </div>
+  </div>
+</main>
+<footer class=\\"border-t-2 mt-10 w-full p-4 text-sm\\">
+  <link rel=\\"stylesheet\\" href=\\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\\">
+  <div id=\\"socials\\" class=\\"mb-4 flex justify-center gap-2\\">
+    <!-- Twitter Share Button --><a href=\\"https://twitter.com/share?url=https://arabic-numbers.koljapluemer.com\\" target=\\"_blank\\" rel=\\"noopener\\"><i class=\\"fab fa-twitter share-icon\\"></i> Share on Twitter </a><!-- Reddit Share Button --><a href=\\"https://www.reddit.com/submit?url=https://arabic-numbers.koljapluemer.com\\" target=\\"_blank\\" rel=\\"noopener\\"><i class=\\"fab fa-reddit share-icon\\"></i> Share on Reddit </a><!-- Hacker News Share Button --><a href=\\"https://news.ycombinator.com/submitlink?u=https://arabic-numbers.koljapluemer.com&t=Arabic%20Numbers%20Converter\\" target=\\"_blank\\" rel=\\"noopener\\"><i class=\\"fab fa-hacker-news share-icon\\"></i> Share on Hacker News </a>
+  </div>
+  <div class=\\"mb-4 flex-justify-center\\"><a href=\\"mailto:feedback@koljapluemer.com\\" class=\\"underline\\">Give Feedback</a></div>
+  <ul class=\\"flex flex-col gap-2\\">
+    <li> Transliterations are Egyptian Arabic. For now. I'm working on an option to choose between different dialects. </li>
+    <li> Made by <a class=\\"underline\\" href=\\"hello@koljapluemer.com\\">Kolja Sam Pluemer</a>. </li>
+    <li> Pseudonymous learning is transmitted to improve the app. No personal data leaves your device. </li>
+    <li> you may also enjoy: <a class=\\"underline\\" href=\\"https://arabic-pronounciation.koljapluemer.com/\\">Arabic Pronunciation Tutor (WIP)</a>. </li>
+    <li> More cool stuff at <a class=\\"underline\\" href=\\"https://koljapluemer.com/\\">koljapluemer.com</a>. </li>
+  </ul>
+</footer>"
+`;
