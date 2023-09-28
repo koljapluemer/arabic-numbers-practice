@@ -506,6 +506,10 @@ function convertNumberToArabicScript(number) {
         <i class="fab fa-hacker-news share-icon"></i> Share on Hacker News
       </a>
     </div>
+
+    <div class="mb-4 flex-justify-center">
+    <a href="mailto:feedback@koljapluemer.com">Give Feedback</a>  
+    </div>
     <ul class="flex flex-col gap-2">
       <li>
         Transliterations are Egyptian Arabic. For now. I'm working on an option
