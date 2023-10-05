@@ -386,7 +386,7 @@ function convertNumberToArabicScript(number) {
 <template>
   <main class="p-2 flex flex-col items-center">
     <div
-      class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center w-3/4 max-w-screen-xl"
+      class="card bg-gray-600 shadow-xl m-4 p-4 flex flex-col justify-start items-center max-w-screen-xl min-w-full"
       v-if="exercise"
       style="min-height: 390px"
     >
