@@ -447,9 +447,10 @@ function convertNumberToArabicScript(number) {
         :value="mission.progress"
         :max="mission.goals[mission.currentGoal]"
       ></progress>
-
-      {{ convertNumberToArabicScript(mission.progress) }} /
-      {{ convertNumberToArabicScript(mission.goals[mission.currentGoal]) }}
+      <div>
+        {{ convertNumberToArabicScript(mission.progress) }} /
+        {{ convertNumberToArabicScript(mission.goals[mission.currentGoal]) }}
+      </div>
     </div>
 
     <h2 class="text-xl font-bold m-2">Statistics</h2>
@@ -508,7 +509,9 @@ function convertNumberToArabicScript(number) {
     </div>
 
     <div class="mb-4 flex-justify-center">
-    <a href="mailto:feedback@koljapluemer.com" class="underline">Give Feedback</a>  
+      <a href="mailto:feedback@koljapluemer.com" class="underline"
+        >Give Feedback</a
+      >
     </div>
     <ul class="flex flex-col gap-2">
       <li>
