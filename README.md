@@ -1,6 +1,9 @@
 # Arabic Number Tutor
 
-![Screenshot of the software](src/assets/example_game.png)
+![Project Image](/doc/img/project.png)
+
+
+
 
 ## Purpose / User Stories
 
@@ -15,3 +18,8 @@
 ## Tech Stack
 
 This is made with Vue3. All interesting things are happening in `App.vue`, so feel free to check out the code.
+
+
+
+
+![Screenshot of Arabic-Numbers-Practice](/doc/img/gallery/example_game.png)

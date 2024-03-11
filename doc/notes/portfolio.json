@@ -1,0 +1,19 @@
+{
+  "title": "Arabic Number Practice",
+  "imageAltProperty": "Screenshot of the Arabic Number Practice game",
+  "shownAboveFold": true,
+  "status": "mvp",
+  "showOnPortfolio": true,
+  "languages": "en, eg",
+  "subtitle": "An online trainer to practice counting in Egyptian",
+  "links": [
+    {
+      "title": "Play Online",
+      "url": "https://arabic-numbers.koljapluemer.com/"
+    },
+    {
+      "title": "GitHub Repository",
+      "url": "https://github.com/koljapluemer/arabic-numbers-practice"
+    }
+  ]
+}
