@@ -3,8 +3,6 @@
 ![Project Image](/doc/img/project.png)
 
 
-
-
 ## Purpose / User Stories
 
 - [x] As a learner, I want to gain a firm understanding (read, pronounce, hear, translate) of Arabic numbers
@@ -20,6 +18,6 @@
 This is made with Vue3. All interesting things are happening in `App.vue`, so feel free to check out the code.
 
 
-
+## Gallery
 
 ![Screenshot of Arabic-Numbers-Practice](/doc/img/gallery/example_game.png)
