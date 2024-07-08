@@ -1,7 +1,7 @@
 {
   "title": "Arabic Number Practice",
   "imageAltProperty": "Screenshot of the Arabic Number Practice game",
-  "shownAboveFold": true,
+  "showAboveFold": true,
   "status": "mvp",
   "showOnPortfolio": true,
   "languages": "en, eg",
