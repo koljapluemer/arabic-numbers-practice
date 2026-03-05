@@ -1,3 +1,5 @@
+import type { NumberEntry } from './types'
+
 const numbers = [
   { val: 0, ar: "٠", ar_long: "صفر", en: "Zero", transliteration: "sifr", level: 0, sr: { interval: 1, repetitions: 0, dueAt: null } },
   { val: 1, ar: "١", ar_long: "واحد", en: "One", transliteration: "wahed", level: 0, sr: { interval: 1, repetitions: 0, dueAt: null } },
