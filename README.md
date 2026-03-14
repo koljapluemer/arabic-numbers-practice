@@ -1,6 +1,6 @@
 # Arabic Number Tutor
 
-![Project Image](screenshot.png)
+![Project Image](doc/screenshot.webp)
 
 ## About
 

@@ -176,9 +176,9 @@ if (storedExercises) {
           stats: Array.isArray(stored.stats) ? stored.stats : defaultExercise.stats,
           sr:
             stored.sr &&
-            typeof stored.sr.interval === "number" &&
-            typeof stored.sr.repetitions === "number" &&
-            typeof stored.sr.dueAt === "number"
+              typeof stored.sr.interval === "number" &&
+              typeof stored.sr.repetitions === "number" &&
+              typeof stored.sr.dueAt === "number"
               ? stored.sr
               : defaultExercise.sr,
         };
@@ -550,9 +550,14 @@ function convertNumberToArabicScript(number: number): string {
     </div>
 
   </main>
-  <footer class="border-t-2 mt-10 w-full p-4 text-sm">
-        Made with ❤︎ by  
-        <a class="underline" href="https://koljasam.com/">Kolja Sam</a>. Uses some functional cookies, but not for tracking. <a href="github.com/koljapluemer/arabic-numbers-practice">Open Source</a>.
+  <footer class="border-t-2 mt-10 w-full p-4 text-sm flex flex-row justify-center">
+    <p class="">
+      Made with ❤︎ by
+      <a class="link" target="_blank" href="https://koljasam.com/">Kolja Sam</a>. Uses some functional cookies, but not for
+      tracking. <a class="link" target="_blank" href="github.com/koljapluemer/arabic-numbers-practice">Open Source</a>. <br> If you want to see more
+      apps like this, you can <a class="link" target="_blank" href="https://ko-fi.com/S6S81CWUVD" rel="noopener">
+        buy me a coffee</a>.
+    </p>
   </footer>
 </template>
 
